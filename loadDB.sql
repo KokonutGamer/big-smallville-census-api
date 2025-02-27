@@ -111,9 +111,6 @@ CREATE TABLE BusinessRecord (
 		Deferrable Initially Deferred
 );
 
---CREATE INDEX PK/FK ON  Business Record (BusinessID, QuarterID);
-
-
 CREATE TABLE PersonalPropertyTax (
   	PropertyID 		Integer			not null,
   	OwnerID 		Integer			not null,
@@ -128,8 +125,6 @@ CREATE TABLE PersonalPropertyTax (
 		Deferrable Initially Deferred
 );
 
---CREATE INDEX PK/FK ON  Personal Property Tax (PropertyID, OwnerID);
-
 CREATE TABLE Employee (
   	ID				Serial			not null,
   	PersonID 		Integer			not null,
@@ -142,5 +137,3 @@ CREATE TABLE Employee (
     FOREIGN KEY 	(BusinessID)REFERENCES Business(ID)
 		Deferrable Initially Deferred
 );
-
-
