@@ -2,39 +2,41 @@ CREATE DATABASE smallVilleDB;
 \c smallvilledb
 
 CREATE TABLE MaritalStatus (
-    ID      		varchar(1)      not null,
-    Name			varchar(20)     not null unique,
+    ID      		varchar(1)      NOT NULL,
+    Name			varchar(20)     NOT NULL UNIQUE,
 
   	PRIMARY KEY 	(ID)
 );
 
 CREATE TABLE District (
- 	ID 				varchar(2)		not null,
- 	Name 			varchar(20) 	not null unique,
+ 	ID 				varchar(2)		NOT NULL,
+ 	Name 			varchar(20) 	NOT NULL UNIQUE,
 
   	PRIMARY KEY 	(ID)
 );
 
 CREATE TABLE Household (
-	ID 				Serial			not null,
-  	Street 			varchar(20)		not null,
-  	ZipCode 		varchar(5)		not null,
-	HouseNumber 	Integer			not null,
+	ID 				Serial			NOT NULL,
+  	Street 			varchar(20)		NOT NULL,
+  	ZipCode 		varchar(5)		NOT NULL,
+	HouseNumber 	Integer			NOT NULL,
   	ApartmentNumber Integer,
- 	DistrictID		varchar(2)		not null,
+ 	DistrictID		varchar(2)		NOT NULL,
 
   	PRIMARY KEY 	(ID),
     FOREIGN KEY 	(DistrictID) REFERENCES District(ID)
-		Deferrable Initially Deferred
+		Deferrable Initially Deferred,
+
+	UNIQUE(Street, ZipCode, HouseNumber, ApartmentNumber)
 );
 
 CREATE TABLE Person (
-  	ID 				Serial			not null,
-  	HouseholdID 	Integer			not null,
-  	MaritalStatusID varchar(1)		not null,
-  	FirstName 		varchar(20)		not null,
-  	LastName 		varchar(20)		not null,
-  	Birthdate 		date			not null,
+  	ID 				Serial			NOT NULL,
+  	MaritalStatusID varchar(1)		NOT NULL,
+  	HouseholdID 	Integer			NOT NULL,
+  	FirstName 		varchar(20)		NOT NULL,
+  	LastName 		varchar(20)		NOT NULL,
+  	Birthdate 		date			NOT NULL,
   	Email 			varchar(80),
   	Phone 			varchar(20),
 
@@ -42,16 +44,18 @@ CREATE TABLE Person (
     FOREIGN KEY 	(MaritalStatusID) REFERENCES MaritalStatus(ID)
 		Deferrable Initially Deferred,
     FOREIGN KEY 	(HouseholdID) REFERENCES Household(ID)
-		Deferrable Initially Deferred
+		Deferrable Initially Deferred,
+
+	UNIQUE(HouseholdID, FirstName, LastName, Birthdate)
 );
 
 CREATE TABLE TaxRecord (
-  	ID 				Serial			not null,
-  	PersonID 		Integer			not null,
-  	Year 			Integer			not null,
-  	NumOfDependents Integer			not null,
+  	ID 				Serial			NOT NULL,
+  	PersonID 		Integer			NOT NULL,
+  	Year 			Integer			NOT NULL,
+  	NumOfDependents Integer			NOT NULL,
 
- 	TaxesPaid 		Decimal(15,2)	not null,
+ 	TaxesPaid 		Decimal(15,2)	NOT NULL,
 
   	PRIMARY KEY 	(ID),
     FOREIGN KEY 	(PersonID) REFERENCES Person(ID)
@@ -59,17 +63,17 @@ CREATE TABLE TaxRecord (
 );
 
 CREATE TABLE PropertyType (
-  	ID 				char(1)			not null,
-  	Name 			varchar(20)		not null unique,
+  	ID 				char(1)			NOT NULL,
+  	Name 			varchar(20)		NOT NULL UNIQUE,
 
   	PRIMARY KEY (ID)
 );
 
 CREATE TABLE PersonalProperty (
-  	ID 				Serial			not null,
-  	PropertyTypeID 	char(1)			not null,
- 	Description 	varchar(50)		not null,
- 	PropertyValue 	Decimal(15,2)	not null,
+  	ID 				Serial			NOT NULL,
+  	PropertyTypeID 	char(1)			NOT NULL,
+ 	Description 	varchar(50)		NOT NULL,
+ 	PropertyValue 	Decimal(15,2)	NOT NULL,
 
   	PRIMARY KEY 	(ID),
     FOREIGN KEY 	(PropertyTypeID) REFERENCES PropertyType(ID)
@@ -77,32 +81,32 @@ CREATE TABLE PersonalProperty (
 );
 
 CREATE TABLE Business (
-  	ID				Serial			not null,
-  	Name 			varchar(80) 	not null unique,
+  	ID				Serial			NOT NULL,
+  	Name 			varchar(80) 	NOT NULL UNIQUE,
   	Email 			varchar(20),
   	Phone 			varchar(10),
- 	Street 			varchar(10)		not null,
- 	ZipCode			varchar(5)		not null,
-  	BuildingNumber 	Integer			not null,
+ 	Street 			varchar(10)		NOT NULL,
+ 	ZipCode			varchar(5)		NOT NULL,
+  	BuildingNumber 	Integer			NOT NULL,
 
   	PRIMARY KEY 	(ID)
 );
 
 CREATE TABLE Quarter (
-  	ID 				Char(2)			not null,
+  	ID 				Char(2)			NOT NULL,
 
   	PRIMARY KEY 	(ID)
 );
 
 CREATE TABLE BusinessRecord (
-  	BusinessID 		Serial			not null,
-  	Revenue 		Decimal(15,2)	not null,
-  	Expenses 		Decimal(15,2)	not null,
-  	Profit 			Decimal(15,2)	not null,
-  	TaxesPaid 		Decimal(15,2)	not null,
-  	PropertyTaxes	Decimal(15,2)	not null,
-  	Year 			Integer			not null,
-  	QuarterID 		Char(2)			not null,
+  	BusinessID 		Serial			NOT NULL,
+  	Revenue 		Decimal(15,2)	NOT NULL,
+  	Expenses 		Decimal(15,2)	NOT NULL,
+  	Profit 			Decimal(15,2)	NOT NULL,
+  	TaxesPaid 		Decimal(15,2)	NOT NULL,
+  	PropertyTaxes	Decimal(15,2)	NOT NULL,
+  	Year 			Integer			NOT NULL,
+  	QuarterID 		Char(2)			NOT NULL,
 
   	PRIMARY KEY 	(BusinessID, QuarterID, Year),
     FOREIGN KEY		(BusinessID) REFERENCES Business(ID)
@@ -112,11 +116,11 @@ CREATE TABLE BusinessRecord (
 );
 
 CREATE TABLE PersonalPropertyTax (
-  	PropertyID 		Integer			not null,
-  	OwnerID 		Integer			not null,
-  	TaxPercentage	Decimal(4,2)	not null,
-  	PercentOwnership Decimal(4,2)	not null,
-  	Year 			Integer			not null,
+  	PropertyID 		Integer			NOT NULL,
+  	OwnerID 		Integer			NOT NULL,
+  	TaxPercentage	Decimal(4,2)	NOT NULL,
+  	PercentOwnership Decimal(4,2)	NOT NULL,
+  	Year 			Integer			NOT NULL,
 
 	PRIMARY KEY		(PropertyID, OwnerID),
     FOREIGN KEY 	(OwnerID) REFERENCES Person(ID)
@@ -126,10 +130,10 @@ CREATE TABLE PersonalPropertyTax (
 );
 
 CREATE TABLE Employee (
-  	ID				Serial			not null,
-  	PersonID 		Integer			not null,
-  	BusinessID 		Integer			not null,
- 	Income 			Decimal(15,2)	not null,
+  	ID				Serial			NOT NULL,
+  	PersonID 		Integer			NOT NULL,
+  	BusinessID 		Integer			NOT NULL,
+ 	Income 			Decimal(15,2)	NOT NULL,
 
   	PRIMARY KEY 	(ID),
     FOREIGN KEY 	(PersonID) REFERENCES Person(ID)
