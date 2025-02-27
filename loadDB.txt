@@ -1,0 +1,146 @@
+CREATE DATABASE smallVilleDB;
+\c smallvilledb
+
+CREATE TABLE MaritalStatus (
+    ID      		varchar(1)      not null,
+    Name			varchar(20)     not null unique,
+
+  	PRIMARY KEY 	(ID)
+);
+
+CREATE TABLE District (
+ 	ID 				varchar(2)		not null,
+ 	Name 			varchar(20) 	not null unique,
+
+  	PRIMARY KEY 	(ID)
+);
+
+CREATE TABLE Household (
+	ID 				Serial			not null,
+  	Street 			varchar(20)		not null,
+  	ZipCode 		varchar(5)		not null,
+	HouseNumber 	Integer			not null,
+  	ApartmentNumber Integer,
+ 	DistrictID		varchar(2)		not null,
+
+  	PRIMARY KEY 	(ID),
+    FOREIGN KEY 	(DistrictID) REFERENCES District(ID)
+		Deferrable Initially Deferred
+);
+
+CREATE TABLE Person (
+  	ID 				Serial			not null,
+  	HouseholdID 	Integer			not null,
+  	MaritalStatusID varchar(1)		not null,
+  	FirstName 		varchar(20)		not null,
+  	LastName 		varchar(20)		not null,
+  	Birthdate 		date			not null,
+  	Email 			varchar(80),
+  	Phone 			varchar(20),
+
+  	PRIMARY KEY 	(ID),
+    FOREIGN KEY 	(MaritalStatusID) REFERENCES MaritalStatus(ID)
+		Deferrable Initially Deferred,
+    FOREIGN KEY 	(HouseholdID) REFERENCES Household(ID)
+		Deferrable Initially Deferred
+);
+
+CREATE TABLE TaxRecord (
+  	ID 				Serial			not null,
+  	PersonID 		Integer			not null,
+  	Year 			Integer			not null,
+  	NumOfDependents Integer			not null,
+
+ 	TaxesPaid 		Decimal(15,2)	not null,
+
+  	PRIMARY KEY 	(ID),
+    FOREIGN KEY 	(PersonID) REFERENCES Person(ID)
+		Deferrable Initially Deferred
+);
+
+CREATE TABLE PropertyType (
+  	ID 				char(1)			not null,
+  	Name 			varchar(20)		not null unique,
+
+  	PRIMARY KEY (ID)
+);
+
+CREATE TABLE PersonalProperty (
+  	ID 				Serial			not null,
+  	PropertyTypeID 	char(1)			not null,
+ 	Description 	varchar(50)		not null,
+ 	PropertyValue 	Decimal(15,2)	not null,
+
+  	PRIMARY KEY 	(ID),
+    FOREIGN KEY 	(PropertyTypeID) REFERENCES PropertyType(ID)
+		Deferrable Initially Deferred
+);
+
+CREATE TABLE Business (
+  	ID				Serial			not null,
+  	Name 			varchar(80) 	not null unique,
+  	Email 			varchar(20),
+  	Phone 			varchar(10),
+ 	Street 			varchar(10)		not null,
+ 	ZipCode			varchar(5)		not null,
+  	BuildingNumber 	Integer			not null,
+
+  	PRIMARY KEY 	(ID)
+);
+
+CREATE TABLE Quarter (
+  	ID 				Char(2)			not null,
+
+  	PRIMARY KEY 	(ID)
+);
+
+CREATE TABLE BusinessRecord (
+  	BusinessID 		Serial			not null,
+  	Revenue 		Decimal(15,2)	not null,
+  	Expenses 		Decimal(15,2)	not null,
+  	Profit 			Decimal(15,2)	not null,
+  	TaxesPaid 		Decimal(15,2)	not null,
+  	PropertyTaxes	Decimal(15,2)	not null,
+  	Year 			Integer			not null,
+  	QuarterID 		Char(2)			not null,
+
+  	PRIMARY KEY 	(BusinessID, QuarterID, Year),
+    FOREIGN KEY		(BusinessID) REFERENCES Business(ID)
+		Deferrable Initially Deferred,
+    FOREIGN KEY 	(QuarterID) REFERENCES Quarter(ID)
+		Deferrable Initially Deferred
+);
+
+--CREATE INDEX PK/FK ON  Business Record (BusinessID, QuarterID);
+
+
+CREATE TABLE PersonalPropertyTax (
+  	PropertyID 		Integer			not null,
+  	OwnerID 		Integer			not null,
+  	TaxPercentage	Decimal(4,2)	not null,
+  	PercentOwnership Decimal(4,2)	not null,
+  	Year 			Integer			not null,
+
+	PRIMARY KEY		(PropertyID, OwnerID),
+    FOREIGN KEY 	(OwnerID) REFERENCES Person(ID)
+		Deferrable Initially Deferred,
+    FOREIGN KEY 	(PropertyID) REFERENCES PersonalProperty(ID)
+		Deferrable Initially Deferred
+);
+
+--CREATE INDEX PK/FK ON  Personal Property Tax (PropertyID, OwnerID);
+
+CREATE TABLE Employee (
+  	ID				Serial			not null,
+  	PersonID 		Integer			not null,
+  	BusinessID 		Integer			not null,
+ 	Income 			Decimal(15,2)	not null,
+
+  	PRIMARY KEY 	(ID),
+    FOREIGN KEY 	(PersonID) REFERENCES Person(ID)
+		Deferrable Initially Deferred,
+    FOREIGN KEY 	(BusinessID)REFERENCES Business(ID)
+		Deferrable Initially Deferred
+);
+
+
