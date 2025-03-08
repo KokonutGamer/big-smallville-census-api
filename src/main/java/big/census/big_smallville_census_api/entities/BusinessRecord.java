@@ -2,13 +2,13 @@ package big.census.big_smallville_census_api.entities;
 
 import java.math.BigDecimal;
 
+import big.census.big_smallville_census_api.composites.BusinessRecordId;
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NonNull;
@@ -17,8 +17,13 @@ import lombok.NonNull;
 @Data
 @Table(name = "businessrecord")
 public class BusinessRecord {
-    @Id
-    private Integer id;
+    @EmbeddedId
+    private BusinessRecordId id;
+
+    @ManyToOne
+    @MapsId("businessId")
+    @JoinColumn(name = "businessid")
+    private Business business;
 
     @NonNull
     private BigDecimal revenue;
@@ -37,7 +42,8 @@ public class BusinessRecord {
     @Column(name = "propertytaxes")
     private BigDecimal propertyTaxes;
 
-    @NonNull
-    private Integer year;
-
+    @ManyToOne
+    @MapsId("quarterId")
+    @JoinColumn(name = "quarterid", columnDefinition = "BPCHAR(2)")
+    private Quarter quarter;
 }

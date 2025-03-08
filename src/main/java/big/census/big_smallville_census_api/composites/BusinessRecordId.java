@@ -10,11 +10,9 @@ import lombok.NonNull;
 @Embeddable
 public class BusinessRecordId implements Serializable {
     @NonNull
-    @Column(name = "businessid")
     private Integer businessId;
 
     @NonNull
-    @Column(name = "quarterid")
     private String quarterId;
 
     @NonNull
