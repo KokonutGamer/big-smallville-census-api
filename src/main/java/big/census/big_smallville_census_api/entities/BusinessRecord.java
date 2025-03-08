@@ -20,6 +20,7 @@ public class BusinessRecord {
     @EmbeddedId
     private BusinessRecordId id;
 
+    @NonNull
     @ManyToOne
     @MapsId("businessId")
     @JoinColumn(name = "businessid")
@@ -42,6 +43,7 @@ public class BusinessRecord {
     @Column(name = "propertytaxes")
     private BigDecimal propertyTaxes;
 
+    @NonNull
     @ManyToOne
     @MapsId("quarterId")
     @JoinColumn(name = "quarterid", columnDefinition = "BPCHAR(2)")

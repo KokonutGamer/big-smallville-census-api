@@ -3,22 +3,18 @@ package big.census.big_smallville_census_api.composites;
 import java.io.Serializable;
 import java.util.Objects;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.NonNull;
 
 @Embeddable
 public class BusinessRecordId implements Serializable {
-    @NonNull
     private Integer businessId;
-
-    @NonNull
     private String quarterId;
 
     @NonNull
     private Integer year;
 
-    public BusinessRecordId(@NonNull Integer businessId, @NonNull String quarterId, @NonNull Integer year) {
+    public BusinessRecordId(Integer businessId, String quarterId, Integer year) {
         this.businessId = businessId;
         this.quarterId = quarterId;
         this.year = year;
