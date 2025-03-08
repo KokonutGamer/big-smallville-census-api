@@ -26,7 +26,9 @@ public class Person {
     private String SSN;
 
     @NonNull
-    private Character maritalstatusid;
+    @ManyToOne
+    @JoinColumn(name = "maritalstatusid")
+    private MaritalStatus maritalStatus;
 
     @NonNull
     @ManyToOne
@@ -34,13 +36,16 @@ public class Person {
     private Household household;
 
     @NonNull
-    private String firstname;
+    @Column(name = "firstname")
+    private String firstName;
 
     @NonNull
-    private String lastname;
+    @Column(name = "lastname")
+    private String lastName;
 
     @NonNull
-    private Date birthdate;
+    @Column(name = "birthdate")
+    private Date birthDate;
 
     private String email;
     private String phone;
