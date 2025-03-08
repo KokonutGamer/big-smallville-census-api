@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -26,8 +27,11 @@ public class Person {
 
     @NonNull
     private Character maritalstatusid;
-    
-    // TODO implement Household entity with @ManyToOne mapping
+
+    @NonNull
+    @ManyToOne
+    @JoinColumn(name = "householdid")
+    private Household household;
 
     @NonNull
     private String firstname;
