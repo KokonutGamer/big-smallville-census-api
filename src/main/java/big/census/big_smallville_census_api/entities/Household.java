@@ -20,19 +20,22 @@ public class Household {
     private Integer id;
 
     @NonNull
-    private String lotnumber;
+    @Column(name = "lotnumber")
+    private String lotNumber;
 
     @NonNull
     private String street;
 
     @NonNull
-    @Column(columnDefinition = "BPCHAR(5)")
-    private String zipcode;
+    @Column(name = "zipcode", columnDefinition = "BPCHAR(5)")
+    private String zipCode;
 
     @NonNull
-    private String housenumber;
+    @Column(name = "housenumber")
+    private String houseNumber;
 
-    private String apartmentnumber;
+    @Column(name = "apartmentnumber")
+    private String apartmentNumber;
 
     @NonNull
     @ManyToOne
