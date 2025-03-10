@@ -48,6 +48,8 @@ CREATE TABLE TaxRecord(
     TaxesPaid Decimal(15, 2) NOT NULL,
     PRIMARY KEY (ID),
     FOREIGN KEY (PersonID) REFERENCES Person(ID) DEFERRABLE INITIALLY DEFERRED
+
+    UNIQUE(ID, YEAR);
 );
 
 CREATE TABLE PropertyType(
