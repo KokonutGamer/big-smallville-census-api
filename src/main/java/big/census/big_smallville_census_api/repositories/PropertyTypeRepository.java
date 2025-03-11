@@ -16,5 +16,21 @@ public interface PropertyTypeRepository extends JpaRepository<PropertyType, Stri
   WHERE name = :propertyTypeName;
   """
   )
-  boolean setTaxPercentageForASpecificPropertyType(@Param("newTaxPercentage") BigDecimal newTaxPercentage, @Param("propertyTypeName") String propertyTypeName);
+  void setTaxPercentageForASpecificPropertyType(@Param("newTaxPercentage") BigDecimal newTaxPercentage, @Param("propertyTypeName") String propertyTypeName);
+
+  @Query(nativeQuery = true, value = 
+  """
+  SELECT COUNT(*) = 1
+  FROM propertytype
+  WHERE name = :typeName;
+  """
+  )
+  boolean isTypeValid(@Param("typeName") String typeName);
+
+  @Query(nativeQuery = true, value = 
+  """
+  SELECT :percentage > 0; 
+  """
+  )
+  boolean isPercentageValid(@Param("percentage") BigDecimal percentage);
 }
