@@ -18,6 +18,7 @@ public class BusinessController{
     this.businessService = businessService;
   }
 
+  // test on http://localhost:8080/api/v1/businesses/avgincome?businessName=Business%201
   @GetMapping("/avgincome")
     ResponseEntity<AvgIncomeResponse> averageIncome(@RequestParam String businessName) {
       AvgIncomeResponse result = new AvgIncomeResponse(
