@@ -502,7 +502,16 @@ INSERT INTO Employee(PersonID, BusinessID, Income)
 (57, 47, 97000.00),
 (58, 48, 98000.00),
 (59, 49, 99000.00),
-(60, 50, 100000.00);
+(60, 50, 100000.00),
+--employees for Serious Business (DEMO)
+(65,51,70000),
+(68,51,83000),
+(66,51,12500),
+(98,51,40000),
+(87,51,50000),
+(73,51,80000),
+(79,51,89000),
+(99,51,7000);
 -- Insert into BusinessRecord table (50 rows)
 -- For each business, we assign a record for the year 2023.
 -- QuarterID is determined cyclically: (BusinessID mod 4) → 1:Q1, 2:Q2, 3:Q3, 0:Q4.
