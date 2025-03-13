@@ -3,6 +3,7 @@ package big.census.big_smallville_census_api.composites;
 import java.io.Serializable;
 import java.util.Objects;
 
+import big.census.big_smallville_census_api.entities.BusinessRecord;
 import jakarta.persistence.Embeddable;
 import lombok.NonNull;
 
@@ -13,6 +14,12 @@ public class BusinessRecordId implements Serializable {
 
     @NonNull
     private Integer year;
+
+    public BusinessRecordId() {
+        this.businessId = null;
+        this.quarterId = null;
+        this.year = null;
+    }
 
     public BusinessRecordId(Integer businessId, String quarterId, Integer year) {
         this.businessId = businessId;
@@ -27,7 +34,7 @@ public class BusinessRecordId implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == null || !(obj instanceof BusinessRecordId)) {
+        if (obj == null || !(obj instanceof BusinessRecordId)) {
             return false;
         }
         BusinessRecordId other = (BusinessRecordId) obj;
