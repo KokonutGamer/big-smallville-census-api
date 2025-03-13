@@ -30,4 +30,8 @@ public class HouseholdService {
         String lotNumber = personRepository.getLotNumberOfPerson(ssn);
         return householdRepository.numberOfDependents(lotNumber);
     }
+
+    public String getLotNumber(String street, String zipcode, String houseNumber, String district, String apartmentNumber) {
+        return householdRepository.getLotNumber(street, zipcode, houseNumber, district, apartmentNumber);
+    }
 }

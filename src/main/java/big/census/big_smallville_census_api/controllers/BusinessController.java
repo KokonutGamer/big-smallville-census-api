@@ -1,6 +1,7 @@
 package big.census.big_smallville_census_api.controllers;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +13,7 @@ import big.census.big_smallville_census_api.responses.WageUpdateResponse;
 import big.census.big_smallville_census_api.services.BusinessService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1/businesses")
 public class BusinessController {
   private final BusinessService businessService;
