@@ -3,7 +3,6 @@ package big.census.big_smallville_census_api.composites;
 import java.io.Serializable;
 import java.util.Objects;
 
-import big.census.big_smallville_census_api.entities.BusinessRecord;
 import jakarta.persistence.Embeddable;
 import lombok.NonNull;
 

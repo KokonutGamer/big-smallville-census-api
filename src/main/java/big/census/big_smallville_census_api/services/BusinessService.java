@@ -25,4 +25,8 @@ public class BusinessService {
     public List<BusinessRecord> listRecordsOfABusiness(String businessName) {
         return businessRepository.getRecordsOfABusiness(businessName);
     }
+
+    public int updateMinWage(String businessName, Integer newWage) {
+        return businessRepository.updateMinWage(businessName, newWage);
+    }
 }

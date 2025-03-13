@@ -36,4 +36,16 @@ public interface BusinessRepository extends JpaRepository<Business, Integer> {
       WHERE name = :businessName;
       """)
   List<BusinessRecord> getRecordsOfABusiness(@Param("businessName") String businessName);
+
+  @Query(nativeQuery = true, value = """
+      WITH updated_rows AS (
+          UPDATE employee
+          SET income = :newWage
+          WHERE income < :newWage
+          AND businessID = (SELECT ID FROM business WHERE name = :businessName)
+          RETURNING 1
+      )
+      SELECT COUNT(*) FROM updated_rows;
+      """)
+  Integer updateMinWage(@Param("businessName") String businessName, @Param("newWage") Integer newWage);
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import big.census.big_smallville_census_api.responses.AvgIncomeResponse;
 import big.census.big_smallville_census_api.responses.BusinessRecordResponse;
+import big.census.big_smallville_census_api.responses.WageUpdateResponse;
 import big.census.big_smallville_census_api.services.BusinessService;
 
 @RestController
@@ -33,6 +34,13 @@ public class BusinessController {
   @GetMapping("/listBusRecords")
   ResponseEntity<BusinessRecordResponse> listBusinessRecords(@RequestParam String businessName) {
     BusinessRecordResponse result = new BusinessRecordResponse(businessService.listRecordsOfABusiness(businessName));
+    return ResponseEntity.ok(result);
+  }
+
+  @GetMapping("/updateMinWage")
+  // http://localhost:8080/api/v1/businesses/updateMinWage?businessName=Serious%20Business&newWage=70000
+  ResponseEntity<WageUpdateResponse> updateMinWage(@RequestParam String businessName, @RequestParam Integer newWage) {
+    WageUpdateResponse result = new WageUpdateResponse(businessService.updateMinWage(businessName, newWage));
     return ResponseEntity.ok(result);
   }
 }
