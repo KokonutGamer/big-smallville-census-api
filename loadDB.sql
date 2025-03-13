@@ -448,7 +448,8 @@ INSERT INTO Business(Name, Email, Phone, Street, ZipCode, BuildingNumber)
 ('Business 47', 'contact47@example.com', '5550000047', 'Main St', '10047', '147'),
 ('Business 48', 'contact48@example.com', '5550000048', 'Main St', '10048', '148'),
 ('Business 49', 'contact49@example.com', '5550000049', 'Main St', '10049', '149'),
-('Business 50', 'contact50@example.com', '5550000050', 'Main St', '10050', '150');
+('Business 50', 'contact50@example.com', '5550000050', 'Main St', '10050', '150'),
+('Serious Business', 'JamesMcgee@hotmail.com', '4253525000', 'Bothell Way', '98011', '301');
 -- Insert into Employee table (50 rows)
 -- Note: We assume Person(ID) values exist; here we use PersonID 11 through 60.
 INSERT INTO Employee(PersonID, BusinessID, Income)
@@ -556,7 +557,14 @@ INSERT INTO BusinessRecord(BusinessID, Revenue, Expenses, Profit, TaxesPaid, Pro
 (47, 570000.00, 570000.00 - 23500.00, 23500.00, 2350.00, 570000.00 * 0.05, 2023, 'Q3'),
 (48, 580000.00, 580000.00 - 24000.00, 24000.00, 2400.00, 580000.00 * 0.05, 2023, 'Q4'),
 (49, 590000.00, 590000.00 - 24500.00, 24500.00, 2450.00, 590000.00 * 0.05, 2023, 'Q1'),
-(50, 600000.00, 600000.00 - 25000.00, 25000.00, 2500.00, 600000.00 * 0.05, 2023, 'Q2');
+(50, 600000.00, 600000.00 - 25000.00, 25000.00, 2500.00, 600000.00 * 0.05, 2023, 'Q2'),
+--records for DEMO
+(51, 634000, 250000, 634000 - 250000, 634000 * .14, 100000*.17, 2020, 'Q1'),
+(51, 712000, 600000, 634000 - 250000, 634000 * .14, 120000*.17, 2020, 'Q2'),
+(51, 709000, 600000, 634000 - 250000, 634000 * .14, 122000*.17, 2020, 'Q3'),
+(51, 750000, 650000, 634000 - 250000, 634000 * .15, 128000*.14, 2020, 'Q4'),
+(51, 801000, 800000, 634000 - 250000, 634000 * .15, 126000*.14, 2021, 'Q1'),
+(51, 760000, 750000, 634000 - 250000, 634000 * .15, 140000*.14, 2021, 'Q2');
 -- Insert into PropertyType table (6 types)
 INSERT INTO PropertyType(ID, Name, TaxPercentage)
     VALUES ('V', 'Vehicle', 2.00),
