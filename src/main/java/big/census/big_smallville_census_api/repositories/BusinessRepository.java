@@ -1,5 +1,6 @@
 package big.census.big_smallville_census_api.repositories;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,7 +19,7 @@ public interface BusinessRepository extends JpaRepository<Business, Integer> {
         JOIN Business b ON e.businessID = b.id
       WHERE b.name = :businessName;
       """)
-  Integer avgEmployeeIncome(@Param("businessName") String businessName);
+  BigDecimal avgEmployeeIncome(@Param("businessName") String businessName);
 
   @Query(nativeQuery = true, value = """
       SELECT P.firstName, P.lastName, E.income
