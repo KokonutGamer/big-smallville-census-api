@@ -48,4 +48,16 @@ public class HouseholdService {
         return householdRepository.getHouseholdMembers(lotNumber);
     }
 
+
+    /**
+     * Checks if a household with a specific lot number exists within the database.
+     * 
+     * @param lotNumber A household's lot number.
+     * @return          True if it exists. Otherwise, false.
+     * @author Kent Mayoya
+     */
+    public boolean lotNumberExists(String lotNumber) {
+        return householdRepository.lotNumberExists(lotNumber) > 0;
+    }
+
 }

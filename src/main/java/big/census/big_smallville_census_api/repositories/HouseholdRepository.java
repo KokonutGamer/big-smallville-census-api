@@ -59,4 +59,18 @@ public interface HouseholdRepository extends JpaRepository<Household, Integer> {
         ORDER BY Person.SSN
         """)
     public List<Person> getHouseholdMembers(@Param("lotNumber") Integer lotNumber);
+
+    /**
+     * Queries the database to get the number of Households with a specific lot number.
+     * 
+     * @param lotNumber A household's lot number. Limited to 5 characters.
+     * @return          1 if the household exists, otherwise 0.
+     * @author Kent Mayoya
+     */
+    @Query(nativeQuery = true, value = """
+        SELECT COUNT(*)
+        FROM Household
+        WHERE lotNumber = :lotNumber
+    """)
+    public int lotNumberExists(@Param("lotNumber") String lotNumber);
 }
