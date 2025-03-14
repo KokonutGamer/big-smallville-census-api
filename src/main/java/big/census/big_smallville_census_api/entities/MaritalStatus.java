@@ -5,12 +5,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NonNull;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
 @Data
 @Table(name = "maritalstatus")
 public class MaritalStatus {
-    MaritalStatus() {}
 
     @Id
     private Character id;

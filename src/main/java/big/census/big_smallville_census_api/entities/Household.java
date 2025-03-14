@@ -10,12 +10,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NonNull;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
 @Data
 @Table(name = "household")
 public class Household {
-    public Household() {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -12,13 +12,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NonNull;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
 @Data
 @Table(name = "person")
 public class Person {
-    public Person() {
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
