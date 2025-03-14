@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import big.census.big_smallville_census_api.responses.LotNumberResponse;
+import big.census.big_smallville_census_api.responses.HouseholdResponse;
 import big.census.big_smallville_census_api.services.HouseholdService;
 
 @RestController
@@ -28,6 +29,19 @@ public class HouseholdController {
             @RequestParam("apartment-number") Optional<String> apartmentNumber) {
         LotNumberResponse result = new LotNumberResponse(
                 householdService.getLotNumber(street, zipcode, houseNumber, district, apartmentNumber.orElse(null)));
+        return ResponseEntity.ok(result);
+    }
+
+    /**
+     * Retrieves household members based on the given lot number.
+     * 
+     * test on
+     * http://localhost:8080/api/v1/households/members?lotNumber=00085
+     * @author Kent Mayoya
+     */
+    @GetMapping("/members")
+    ResponseEntity<HouseholdResponse> getHouseholdMembers(@RequestParam Integer lotNumber) {
+        HouseholdResponse result = new HouseholdResponse(householdService.getHouseholdMembers(lotNumber));
         return ResponseEntity.ok(result);
     }
 }

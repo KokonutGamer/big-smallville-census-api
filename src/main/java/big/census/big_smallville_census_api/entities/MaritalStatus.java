@@ -10,6 +10,8 @@ import lombok.NonNull;
 @Data
 @Table(name = "maritalstatus")
 public class MaritalStatus {
+    MaritalStatus() {}
+
     @Id
     private Character id;
 

@@ -4,7 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import big.census.big_smallville_census_api.entities.Household;
+import big.census.big_smallville_census_api.entities.Person;
+
 
 public interface HouseholdRepository extends JpaRepository<Household, Integer> {
     @Query(nativeQuery = true, value = """
@@ -32,4 +35,28 @@ public interface HouseholdRepository extends JpaRepository<Household, Integer> {
     String getLotNumber(@Param("street") String street, @Param("zipcode") String zipcode,
             @Param("houseNumber") String houseNumber, @Param("district") String district,
             @Param("apartmentNumber") String apartmentNumber);
+
+    /**
+     * Detail API - 50 points
+     * This API retrieves detailed information for each household.
+     * From this API, we could calculate the average size, age, and other relevant
+     * statistics for each household in Smallville. This information is useful to
+     * track Smallville’s population and demographics over time.
+     * 
+     * To remain consistent with Person class defined in Person.java, all fields are
+     * queried. Unnecessary fields will be filtered out in the front-end.
+     * 
+     * @param lotNumber An integer representing the household’s lot number.
+     * @return          A list of person objects within the requested household. 
+     * @author Kent Mayoya
+     */
+    @Query(nativeQuery = true, value = """
+        SELECT Person.*
+        FROM Person
+            JOIN Household ON (Person.HouseholdID = Household.ID)
+            JOIN MaritalStatus ON (Person.MaritalStatusID = MaritalStatus.ID)
+        WHERE Person.HouseholdID = :lotNumber
+        ORDER BY Person.SSN
+        """)
+    public List<Person> getHouseholdMembers(@Param("lotNumber") Integer lotNumber);
 }

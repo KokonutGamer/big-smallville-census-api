@@ -17,6 +17,9 @@ import lombok.NonNull;
 @Data
 @Table(name = "person")
 public class Person {
+    public Person() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

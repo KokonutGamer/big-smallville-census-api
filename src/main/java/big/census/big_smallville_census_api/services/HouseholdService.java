@@ -1,12 +1,14 @@
 package big.census.big_smallville_census_api.services;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import big.census.big_smallville_census_api.repositories.HouseholdRepository;
 import big.census.big_smallville_census_api.repositories.PersonRepository;
+import big.census.big_smallville_census_api.entities.Person;
 
 @Service
 public class HouseholdService {
@@ -34,4 +36,16 @@ public class HouseholdService {
     public String getLotNumber(String street, String zipcode, String houseNumber, String district, String apartmentNumber) {
         return householdRepository.getLotNumber(street, zipcode, houseNumber, district, apartmentNumber);
     }
+
+    /**
+     * Fetches household members for the given lot number.
+     * 
+     * @param lotNumber An integer representing the household’s lot number.
+     * @return          A list of person objects within the requested household. 
+     * @author  Kent Mayoya
+     */
+    public List<Person> getHouseholdMembers(Integer lotNumber) {
+        return householdRepository.getHouseholdMembers(lotNumber);
+    }
+
 }

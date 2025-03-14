@@ -11,6 +11,8 @@ import lombok.NonNull;
 @Data
 @Table(name = "district")
 public class District {
+    District() {}
+
     @Id
     @Column(columnDefinition = "BPCHAR(2)")
     private String id;

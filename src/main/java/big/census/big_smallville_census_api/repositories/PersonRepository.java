@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import big.census.big_smallville_census_api.entities.Person;
+import java.util.List;
 
 public interface PersonRepository extends JpaRepository<Person, Integer> {
     @Query(nativeQuery = true, value = "SELECT Household.lotNumber FROM Household JOIN Person ON Person.householdID = Household.ID WHERE Person.ssn =:ssn")
