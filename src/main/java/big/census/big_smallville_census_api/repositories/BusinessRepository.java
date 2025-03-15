@@ -22,11 +22,11 @@ public interface BusinessRepository extends JpaRepository<Business, Integer> {
   BigDecimal avgEmployeeIncome(@Param("businessName") String businessName);
 
   @Query("""
-      SELECT new big.census.big_smallville_census_api.dtos.EmployeeNameDto(p.firstName, p.lastName, e.income)
-      FROM Employee e
-        JOIN e.person p
-        JOIN e.business b
-      WHERE b.name = :businessName
+      SELECT new big.census.big_smallville_census_api.dtos.EmployeeNameDto(P.firstName, P.lastName, E.income)
+      FROM Employee AS E
+        JOIN E.person AS P
+        JOIN E.business AS B
+      WHERE B.name = :businessName
       """)
 List<EmployeeNameDto> getEmployeesInABusiness(@Param("businessName") String businessName);
 

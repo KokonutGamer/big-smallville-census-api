@@ -14,7 +14,7 @@ public class PropertyTypeService {
 
     //false if the type doesn't exist, percentage already set, or new percentage negative
     public boolean updateTaxPercentageForASpecificPropertyType(BigDecimal newTaxPercentage, String propertyTypeName){
-        if (!propertyTypeRepository.isTypeValid(propertyTypeName) || !propertyTypeRepository.isPercentageValid(newTaxPercentage)) {
+        if (!propertyTypeRepository.isTypeValid(propertyTypeName) || (newTaxPercentage.compareTo(BigDecimal.ZERO) < 0)) {
             return false;
         }
         

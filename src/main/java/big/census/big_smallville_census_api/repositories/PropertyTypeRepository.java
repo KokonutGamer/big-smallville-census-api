@@ -26,11 +26,4 @@ public interface PropertyTypeRepository extends JpaRepository<PropertyType, Stri
   """
   )
   boolean isTypeValid(@Param("typeName") String typeName);
-
-  @Query(nativeQuery = true, value = 
-  """
-  SELECT :percentage > 0; 
-  """
-  )
-  boolean isPercentageValid(@Param("percentage") BigDecimal percentage);
 }
