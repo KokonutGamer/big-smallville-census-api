@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import big.census.big_smallville_census_api.responses.IncentiveResponse;
+import big.census.big_smallville_census_api.responses.ListParentsResponse;
 import big.census.big_smallville_census_api.responses.HouseholdResponse;
 import big.census.big_smallville_census_api.responses.AddPersonResponse;
+import big.census.big_smallville_census_api.responses.AvgIncomeResponse;
 import big.census.big_smallville_census_api.services.HouseholdService;
 import big.census.big_smallville_census_api.services.PersonService;
 
@@ -73,4 +75,11 @@ public class PersonController {
         AddPersonResponse result = new AddPersonResponse(success, uniqueSSN, lotNumberExists);
         return ResponseEntity.ok(result);
     }
+
+
+    @GetMapping("/needyParents")
+    ResponseEntity<ListParentsResponse> needyParents() {
+        ListParentsResponse result = new ListParentsResponse(personService.getNeedyParents());
+        return ResponseEntity.ok(result);
+  }
 }

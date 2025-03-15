@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 import big.census.big_smallville_census_api.repositories.PersonRepository;
 
 import big.census.big_smallville_census_api.entities.MaritalStatus;
+import big.census.big_smallville_census_api.entities.Person;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PersonService {
@@ -42,5 +44,9 @@ public class PersonService {
      */
     public boolean ssnExists(String ssn) {
         return personRepository.ssnExists(ssn) > 0;
+    }
+
+    public List<Person> getNeedyParents() {
+        return personRepository.getNeedyParents();
     }
 }
