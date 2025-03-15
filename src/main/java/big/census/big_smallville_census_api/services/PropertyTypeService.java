@@ -9,7 +9,6 @@ import big.census.big_smallville_census_api.repositories.PropertyTypeRepository;
 
 @Service
 public class PropertyTypeService {
-    /* TODO implement service */
     @Autowired
     private PropertyTypeRepository propertyTypeRepository;
 
