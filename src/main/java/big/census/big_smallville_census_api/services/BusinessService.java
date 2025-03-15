@@ -6,8 +6,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import big.census.big_smallville_census_api.entities.Employee;
 import big.census.big_smallville_census_api.entities.BusinessRecord;
+import big.census.big_smallville_census_api.dtos.EmployeeNameDto;
 
 import big.census.big_smallville_census_api.repositories.BusinessRepository;
 
@@ -20,7 +20,7 @@ public class BusinessService {
         return businessRepository.avgEmployeeIncome(businessName);
     }
 
-    public List<Employee> listEmployeesInABusiness(String businessName) {
+    public List<EmployeeNameDto> listEmployeesInABusiness(String businessName) {
         return businessRepository.getEmployeesInABusiness(businessName);
     }
 

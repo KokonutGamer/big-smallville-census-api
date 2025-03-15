@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import big.census.big_smallville_census_api.entities.Business;
 import big.census.big_smallville_census_api.entities.BusinessRecord;
-import big.census.big_smallville_census_api.entities.Employee;
+import big.census.big_smallville_census_api.dtos.EmployeeNameDto;
 
 public interface BusinessRepository extends JpaRepository<Business, Integer> {
   @Query(nativeQuery = true, value = """
@@ -21,14 +21,15 @@ public interface BusinessRepository extends JpaRepository<Business, Integer> {
       """)
   BigDecimal avgEmployeeIncome(@Param("businessName") String businessName);
 
-  @Query(nativeQuery = true, value = """
-      SELECT P.firstName, P.lastName, E.income
-      FROM Person AS P
-        JOIN Employee AS E ON (P.ID = E.personID)
-        JOIN Business AS B ON (B.ID = E.businessID)
-      WHERE B.name = :businessName;
+  @Query("""
+      SELECT new big.census.big_smallville_census_api.dtos.EmployeeNameDto(p.firstName, p.lastName, e.income)
+      FROM Employee e
+        JOIN e.person p
+        JOIN e.business b
+      WHERE b.name = :businessName
       """)
-  List<Employee> getEmployeesInABusiness(@Param("businessName") String businessName);
+List<EmployeeNameDto> getEmployeesInABusiness(@Param("businessName") String businessName);
+
 
   @Query(nativeQuery = true, value = """
       SELECT businessid, revenue, expenses, profit, taxespaid, propertytaxes, year, quarterid

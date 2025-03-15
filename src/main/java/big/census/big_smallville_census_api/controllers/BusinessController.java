@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import big.census.big_smallville_census_api.responses.AvgIncomeResponse;
 import big.census.big_smallville_census_api.responses.BusinessRecordResponse;
-import big.census.big_smallville_census_api.responses.ListEmployeeResponse;
+import big.census.big_smallville_census_api.responses.ListEmployeesResponse;
 import big.census.big_smallville_census_api.responses.WageUpdateResponse;
 import big.census.big_smallville_census_api.services.BusinessService;
 
@@ -47,9 +47,11 @@ public class BusinessController {
     return ResponseEntity.ok(result);
   }
 
-  @GetMapping("/listEmployee")
-  ResponseEntity<ListEmployeeResponse> listEmployee(@RequestParam String businessName) {
-    ListEmployeeResponse result = new ListEmployeeResponse(businessService.listEmployeesInABusiness(businessName));
+  // test on
+  // http://localhost:8080/api/v1/businesses/listEmployees?businessName=Serious%20Business
+  @GetMapping("/listEmployees")
+  ResponseEntity<ListEmployeesResponse> listEmployees(@RequestParam String businessName) {
+    ListEmployeesResponse result = new ListEmployeesResponse(businessService.listEmployeesInABusiness(businessName));
     return ResponseEntity.ok(result);
   }
 }
