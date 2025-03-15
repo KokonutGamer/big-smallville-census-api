@@ -1,5 +1,6 @@
 package big.census.big_smallville_census_api.repositories;
 
+import org.antlr.v4.runtime.atn.SemanticContext.AND;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -60,4 +61,38 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
         WHERE ssn = :ssn
     """)
     public int ssnExists(@Param("ssn") String ssn);
+
+
+    @Query(nativeQuery = true, value = """
+        SELECT
+            p.ID,
+            p.FirstName,
+            p.LastName,
+            COUNT(c.ID) AS num_children
+        FROM
+            Person p
+        JOIN
+            MaritalStatus ms 
+            ON p.MaritalStatusID = ms.ID
+        JOIN
+            Person c 
+            ON c.HouseholdID = p.HouseholdID 
+            AND c.ID != p.ID
+        WHERE
+            ms.name = 'married'
+            AND age(current_date, c.Birthdate) < interval '18 years'
+            AND NOT EXISTS (
+                SELECT *
+                FROM PersonalPropertyTax ppt
+                JOIN PersonalProperty pp ON ppt.PropertyID = pp.ID
+                JOIN PropertyType pt ON pp.PropertyTypeID = pt.ID
+                WHERE ppt.OwnerID = p.ID
+                AND pt.Name = 'House'
+            )
+        GROUP BY
+            p.ID, p.FirstName, p.LastName
+        HAVING
+            COUNT(c.ID) >= 3
+    """)
+    public List<Person> getNeedyParents();
 }
