@@ -46,6 +46,7 @@ public interface HouseholdRepository extends JpaRepository<Household, Integer> {
      * queried. Unnecessary fields will be filtered out in the front-end.
      * 
      * @param lotNumber An integer representing the household’s lot number.
+     * @param limit     An integer representing the maximum number of rows to return.
      * @return A list of person objects within the requested household.
      * @author Kent Mayoya
      */
@@ -57,8 +58,10 @@ public interface HouseholdRepository extends JpaRepository<Household, Integer> {
                 JOIN MaritalStatus ON (Person.MaritalStatusID = MaritalStatus.ID)
             WHERE Person.HouseholdID = :lotNumber
             ORDER BY Person.SSN
+            LIMIT :limit
             """)
-    public List<PersonDto> getHouseholdMembers(@Param("lotNumber") Integer lotNumber);
+    public List<PersonDto> getHouseholdMembers(@Param("lotNumber") Integer lotNumber,
+            @Param("limit") Integer limit);
 
     /**
      * Queries the database to get the number of Households with a specific lot
