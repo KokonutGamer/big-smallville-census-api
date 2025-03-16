@@ -1,12 +1,14 @@
 package big.census.big_smallville_census_api.repositories;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import big.census.big_smallville_census_api.dtos.PropertyTypeDto;
 import big.census.big_smallville_census_api.entities.PropertyType;
 
 public interface PropertyTypeRepository extends JpaRepository<PropertyType, String> {
@@ -27,18 +29,45 @@ public interface PropertyTypeRepository extends JpaRepository<PropertyType, Stri
    */
   @Modifying
   @Query(nativeQuery = true, value =
-  """
-  UPDATE PropertyType
-  SET taxPercentage = :newTaxPercentage
-  WHERE name = :propertyTypeName;
-  """
-  )
+    """
+    UPDATE PropertyType
+    SET taxPercentage = :newTaxPercentage
+    WHERE name = :propertyTypeName;
+    """
+    )
   Integer setTaxPercentageForASpecificPropertyType(@Param("newTaxPercentage") BigDecimal newTaxPercentage, @Param("propertyTypeName") String propertyTypeName);
 
-  @Query(nativeQuery = true, value = """
-      SELECT COUNT(*) = 1
-      FROM propertytype
-      WHERE name = :typeName;
-      """)
+  /**
+   * Check if the give property type name is valid
+   * 
+   * @param typeName the the property type name for which we want to update
+   * the tax percentage
+   * @return true if valid, false if not
+   * 
+   * @author Ting Gao
+   */
+  @Query(nativeQuery = true, value =
+    """
+    SELECT COUNT(*) = 1
+    FROM propertytype
+    WHERE name = :typeName;
+    """
+    )
   boolean isTypeValid(@Param("typeName") String typeName);
+
+  /**
+   * Display name and taxPercentage attributes of PropertyType Table, hiding ID
+   * 
+   * @return the PropertyType Table
+   * 
+   * @author Ting Gao
+   */
+  @Query(nativeQuery = true, value =
+    """
+    SELECT PT.name, PT.taxPercentage
+    FROM PropertyType AS PT
+    ORDER BY PT.name;
+    """
+    )
+  List<PropertyTypeDto> displayPropertyTypeTable();
 }

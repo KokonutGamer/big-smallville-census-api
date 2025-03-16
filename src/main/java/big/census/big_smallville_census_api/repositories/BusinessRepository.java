@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import big.census.big_smallville_census_api.entities.Business;
 import big.census.big_smallville_census_api.entities.BusinessRecord;
-import big.census.big_smallville_census_api.dtos.EmployeeNameDto;
+import big.census.big_smallville_census_api.dtos.EmployeeDto;
 
 public interface BusinessRepository extends JpaRepository<Business, Integer> {
   @Query(nativeQuery = true, value = """
@@ -35,14 +35,16 @@ public interface BusinessRepository extends JpaRepository<Business, Integer> {
    * @return a list of employees' first names, last names, and incomes
    * @author Ting Gao & Gabe Lapingcao
    */
-  @Query(nativeQuery = true, value = """
-      SELECT P.firstName, P.lastName, E.income
-      FROM Employee AS E
-        JOIN Person AS P ON P.ID = E.personID
-        JOIN Business AS B ON B.ID = E.businessID
-      WHERE B.name = :businessName;
-      """)
-  List<EmployeeNameDto> getEmployeesInABusiness(@Param("businessName") String businessName);
+  @Query(nativeQuery = true, value =
+    """
+    SELECT P.firstName, P.lastName, E.income
+    FROM Employee AS E
+      JOIN Person AS P ON P.ID = E.personID
+      JOIN Business AS B ON B.ID = E.businessID
+    WHERE B.name = :businessName;
+    """
+    )
+  List<EmployeeDto> getEmployeesInABusiness(@Param("businessName") String businessName);
 
   @Query(nativeQuery = true, value = """
       SELECT businessid, revenue, expenses, profit, taxespaid, propertytaxes, year, quarterid

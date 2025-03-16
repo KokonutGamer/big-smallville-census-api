@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import big.census.big_smallville_census_api.responses.DisplayPropertyTypeTableResponse;
 import big.census.big_smallville_census_api.responses.TaxPercentageUpdateResponse;
 import big.census.big_smallville_census_api.services.PropertyTypeService;
 
@@ -25,9 +26,6 @@ public class PropertyTypeController{
   /**
    * Update the tax percentage based on a given property type name
    * 
-   * Return 1 if updated
-   * Return 0 if the given name is invalid or the new percentage is negative
-   * 
    * Test on
    * http://localhost:8080/api/v1/propertyType/updateTaxPercentage?propertyTypeName=Vehicle&newTaxPercentage=0.8
    * The given property type name is 'Vehicle' and new tax percentage is 0.8
@@ -43,11 +41,29 @@ public class PropertyTypeController{
    * The new percentage is -1
    * This should return 0
    * 
+   * @return Integer, 1 if updated, 0 if the given name is invalid or the new percentage is negative
+   * 
    * @author Ting Gao
    */
   @GetMapping("/updateTaxPercentage")
   ResponseEntity<TaxPercentageUpdateResponse> updateTaxPercentage(@RequestParam BigDecimal newTaxPercentage, @RequestParam String propertyTypeName) {
     TaxPercentageUpdateResponse result = new TaxPercentageUpdateResponse(propertyTypeService.updateTaxPercentageForASpecificPropertyType(newTaxPercentage, propertyTypeName));
+    return ResponseEntity.ok(result);
+  }
+
+  /**
+   * Display PropertyType Table (excluding ID) to verify updateTaxPercentageForASpecificPropertyType
+   * 
+   * View the table on
+   * http://localhost:8080/api/v1/propertyType/displayPropertyTypeTable
+   * 
+   * @return all property types' names and tax percentages
+   * 
+   * @author Ting Gao
+   */
+  @GetMapping("/displayPropertyTypeTable")
+  ResponseEntity<DisplayPropertyTypeTableResponse> displayPropertyTypeTable() {
+    DisplayPropertyTypeTableResponse result = new DisplayPropertyTypeTableResponse(propertyTypeService.displayPropertyTypeTable());
     return ResponseEntity.ok(result);
   }
 }
