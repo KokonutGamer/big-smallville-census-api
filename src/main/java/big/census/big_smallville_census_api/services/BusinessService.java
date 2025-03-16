@@ -20,6 +20,14 @@ public class BusinessService {
         return businessRepository.avgEmployeeIncome(businessName);
     }
 
+    /**
+     * Show first name, last name, and income of all employees based on a given business name.
+     * 
+     * @param businessName the given business name
+     * @return a list of employees' first names, last names, and incomes
+     * 
+     * @author Ting Gao
+     */
     public List<EmployeeNameDto> listEmployeesInABusiness(String businessName) {
         return businessRepository.getEmployeesInABusiness(businessName);
     }

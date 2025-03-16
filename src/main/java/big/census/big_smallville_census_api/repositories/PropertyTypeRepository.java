@@ -10,6 +10,21 @@ import org.springframework.data.repository.query.Param;
 import big.census.big_smallville_census_api.entities.PropertyType;
 
 public interface PropertyTypeRepository extends JpaRepository<PropertyType, String> {
+  /**
+   * Update Tax Percentage For A Specific Property Type
+   * Update the tax percentage based on a given property type name.
+   * Lowering tax for a property type may incentivize civilians to purchase them
+   * more, and raising tax for a property type may push them away from
+   * purchasing those types of property. 
+   * 
+   * @param newTaxPercentage the new tax percentage desired
+   * @param propertyTypeName the property type name for which we want to update
+   * the tax percentage 
+   * @return Integer, 1 if updated, 0 if the given name is invalid or the new
+   * percentage is negative
+   * 
+   * @author Ting Gao
+   */
   @Modifying
   @Query(nativeQuery = true, value =
   """

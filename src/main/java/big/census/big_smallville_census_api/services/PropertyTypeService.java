@@ -13,7 +13,17 @@ public class PropertyTypeService {
     @Autowired
     private PropertyTypeRepository propertyTypeRepository;
 
-    //false if the type doesn't exist, percentage already set, or new percentage negative
+    /**
+     * Update the tax percentage based on a given property type name.
+     * 
+     * @param newTaxPercentage the new tax percentage desired
+     * @param propertyTypeName the property type name for which we want to update
+     * the tax percentage 
+     * @return Integer, 1 if updated, 0 if the given name is invalid or the new
+     * percentage is negative
+     * 
+     * @author Ting Gao
+     */
     @Transactional
     public Integer updateTaxPercentageForASpecificPropertyType(BigDecimal newTaxPercentage, String propertyTypeName){
         if (!propertyTypeRepository.isTypeValid(propertyTypeName) || (newTaxPercentage.compareTo(BigDecimal.ZERO) < 0)) {

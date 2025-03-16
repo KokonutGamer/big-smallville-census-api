@@ -22,7 +22,29 @@ public class PropertyTypeController{
     this.propertyTypeService = propertyTypeService;
   }
 
-  // http://localhost:8080/api/v1/propertyType/updateTaxPercentage?propertyTypeName=Vehicle&newTaxPercentage=1
+  /**
+   * Update the tax percentage based on a given property type name
+   * 
+   * Return 1 if updated
+   * Return 0 if the given name is invalid or the new percentage is negative
+   * 
+   * Test on
+   * http://localhost:8080/api/v1/propertyType/updateTaxPercentage?propertyTypeName=Vehicle&newTaxPercentage=0.8
+   * The given property type name is 'Vehicle' and new tax percentage is 0.8
+   * This should return 1
+   * 
+   * Test on
+   * http://localhost:8080/api/v1/propertyType/updateTaxPercentage?propertyTypeName=Air&newTaxPercentage=0.8
+   * The given property type name is 'Air'
+   * This should return 0
+   * 
+   * Test on
+   * http://localhost:8080/api/v1/propertyType/updateTaxPercentage?propertyTypeName=Vehicle&newTaxPercentage=-1
+   * The new percentage is -1
+   * This should return 0
+   * 
+   * @author Ting Gao
+   */
   @GetMapping("/updateTaxPercentage")
   ResponseEntity<TaxPercentageUpdateResponse> updateTaxPercentage(@RequestParam BigDecimal newTaxPercentage, @RequestParam String propertyTypeName) {
     TaxPercentageUpdateResponse result = new TaxPercentageUpdateResponse(propertyTypeService.updateTaxPercentageForASpecificPropertyType(newTaxPercentage, propertyTypeName));

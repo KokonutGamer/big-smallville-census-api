@@ -46,9 +46,15 @@ public class BusinessController {
     WageUpdateResponse result = new WageUpdateResponse(businessService.updateMinWage(businessName, newWage));
     return ResponseEntity.ok(result);
   }
-
-  // test on
-  // http://localhost:8080/api/v1/businesses/listEmployees?businessName=Serious%20Business
+  /**
+   * Show first name, last name, and income of all employees based on a given business name
+   * 
+   * Test on
+   * http://localhost:8080/api/v1/businesses/listEmployees?businessName=Serious%20Business
+   * The given business name is 'Serious Business'
+   * 
+   * @author Ting Gao
+   */
   @GetMapping("/listEmployees")
   ResponseEntity<ListEmployeesResponse> listEmployees(@RequestParam String businessName) {
     ListEmployeesResponse result = new ListEmployeesResponse(businessService.listEmployeesInABusiness(businessName));

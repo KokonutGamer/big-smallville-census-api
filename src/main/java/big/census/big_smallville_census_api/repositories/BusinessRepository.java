@@ -21,6 +21,20 @@ public interface BusinessRepository extends JpaRepository<Business, Integer> {
       """)
   BigDecimal avgEmployeeIncome(@Param("businessName") String businessName);
 
+  /**
+   * List Employees In A Business 
+   * Show first name, last name, and income of all employees based on a given business name.
+   * This help analyze the condition of the business selected.
+   * 
+   * DTO projections implemented to display only information we want to see.
+   * https://www.javaguides.net/2023/08/spring-data-jpa-specific-columns.html
+   * used as reference.
+   * DTO turned into an interface to use native query.
+   * 
+   * @param businessName the given business name
+   * @return a list of employees' first names, last names, and incomes
+   * @author Ting Gao & Gabe Lapingcao
+   */
   @Query(nativeQuery = true, value = """
       SELECT P.firstName, P.lastName, E.income
       FROM Employee AS E
