@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import big.census.big_smallville_census_api.repositories.PropertyTypeRepository;
 
@@ -13,12 +14,13 @@ public class PropertyTypeService {
     private PropertyTypeRepository propertyTypeRepository;
 
     //false if the type doesn't exist, percentage already set, or new percentage negative
-    public boolean updateTaxPercentageForASpecificPropertyType(BigDecimal newTaxPercentage, String propertyTypeName){
+    @Transactional
+    public Integer updateTaxPercentageForASpecificPropertyType(BigDecimal newTaxPercentage, String propertyTypeName){
         if (!propertyTypeRepository.isTypeValid(propertyTypeName) || (newTaxPercentage.compareTo(BigDecimal.ZERO) < 0)) {
-            return false;
+            return 0;
         }
         
         propertyTypeRepository.setTaxPercentageForASpecificPropertyType(newTaxPercentage, propertyTypeName);
-        return true;
+        return 1;
     }
 }
