@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import big.census.big_smallville_census_api.entities.Household;
-import big.census.big_smallville_census_api.entities.Person;
+import big.census.big_smallville_census_api.dtos.PersonDto;
 
 public interface HouseholdRepository extends JpaRepository<Household, Integer> {
     @Query(nativeQuery = true, value = """
@@ -50,14 +50,15 @@ public interface HouseholdRepository extends JpaRepository<Household, Integer> {
      * @author Kent Mayoya
      */
     @Query(nativeQuery = true, value = """
-            SELECT Person.*
+            SELECT Person.ssn, Person.firstname, Person.lastname, MaritalStatus.name,
+                Person.birthdate, Person.email, Person.phone
             FROM Person
                 JOIN Household ON (Person.HouseholdID = Household.ID)
                 JOIN MaritalStatus ON (Person.MaritalStatusID = MaritalStatus.ID)
             WHERE Person.HouseholdID = :lotNumber
             ORDER BY Person.SSN
             """)
-    public List<Person> getHouseholdMembers(@Param("lotNumber") Integer lotNumber);
+    public List<PersonDto> getHouseholdMembers(@Param("lotNumber") Integer lotNumber);
 
     /**
      * Queries the database to get the number of Households with a specific lot

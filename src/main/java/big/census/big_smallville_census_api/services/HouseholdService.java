@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import big.census.big_smallville_census_api.repositories.HouseholdRepository;
 import big.census.big_smallville_census_api.repositories.PersonRepository;
-import big.census.big_smallville_census_api.entities.Person;
+import big.census.big_smallville_census_api.dtos.PersonDto;
 
 @Service
 public class HouseholdService {
@@ -45,7 +45,7 @@ public class HouseholdService {
      * @return A list of person objects within the requested household.
      * @author Kent Mayoya
      */
-    public List<Person> getHouseholdMembers(Integer lotNumber) {
+    public List<PersonDto> getHouseholdMembers(Integer lotNumber) {
         return householdRepository.getHouseholdMembers(lotNumber);
     }
 
