@@ -2,19 +2,10 @@ package big.census.big_smallville_census_api.dtos;
 
 import java.math.BigDecimal;
 
-import lombok.Data;
+public interface EmployeeNameDto {
+  String getFirstName();
 
-@Data
-public class EmployeeNameDto
-{
-  private final String firstName;
-  private final String lastName;
-  private final BigDecimal income;
+  String getLastName();
 
-  public EmployeeNameDto(String firstName, String lastName, BigDecimal income)
-  {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.income = income;
-  }
+  BigDecimal getIncome();
 }

@@ -19,7 +19,7 @@ public class PropertyTypeService {
         if (!propertyTypeRepository.isTypeValid(propertyTypeName) || (newTaxPercentage.compareTo(BigDecimal.ZERO) < 0)) {
             return 0;
         }
-        
+
         propertyTypeRepository.setTaxPercentageForASpecificPropertyType(newTaxPercentage, propertyTypeName);
         return 1;
     }

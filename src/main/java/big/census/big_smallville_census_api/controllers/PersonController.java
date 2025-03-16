@@ -11,9 +11,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 
 import big.census.big_smallville_census_api.responses.IncentiveResponse;
 import big.census.big_smallville_census_api.responses.ListParentsResponse;
-import big.census.big_smallville_census_api.responses.HouseholdResponse;
 import big.census.big_smallville_census_api.responses.AddPersonResponse;
-import big.census.big_smallville_census_api.responses.AvgIncomeResponse;
 import big.census.big_smallville_census_api.services.HouseholdService;
 import big.census.big_smallville_census_api.services.PersonService;
 
@@ -48,18 +46,19 @@ public class PersonController {
      * 
      * test on
      * http://localhost:8080/api/v1/persons/add?ssn=000000146&maritalStatusID=S&lotNumber=00001&firstName=Joe&lastName=Mama&birthDate=01-01-1945&email=joe.mama@example.com&phone=5550100151
+     * 
      * @author Kent Mayoya
      */
     @GetMapping("/add")
     ResponseEntity<AddPersonResponse> addPerson(
-        @RequestParam String ssn, 
-        @RequestParam MaritalStatus maritalStatusID,
-        @RequestParam String lotNumber,
-        @RequestParam String firstName,
-        @RequestParam String lastName,
-        @RequestParam @DateTimeFormat(pattern = "MM-dd-yyyy") Date birthDate,
-        @RequestParam String email,
-        @RequestParam String phone) {
+            @RequestParam String ssn,
+            @RequestParam MaritalStatus maritalStatusID,
+            @RequestParam String lotNumber,
+            @RequestParam String firstName,
+            @RequestParam String lastName,
+            @RequestParam @DateTimeFormat(pattern = "MM-dd-yyyy") Date birthDate,
+            @RequestParam String email,
+            @RequestParam String phone) {
         boolean lotNumberExists = householdService.lotNumberExists(lotNumber);
         boolean uniqueSSN = !personService.ssnExists(ssn);
         if (!lotNumberExists || !uniqueSSN) {
@@ -68,7 +67,8 @@ public class PersonController {
         }
         boolean success;
         try {
-            success = personService.addPerson(ssn, maritalStatusID, lotNumber, firstName, lastName, birthDate, email, phone);
+            success = personService.addPerson(ssn, maritalStatusID, lotNumber, firstName, lastName, birthDate, email,
+                    phone);
         } catch (DataIntegrityViolationException ex) {
             success = false;
         }
@@ -76,10 +76,9 @@ public class PersonController {
         return ResponseEntity.ok(result);
     }
 
-
     @GetMapping("/needyParents")
     ResponseEntity<ListParentsResponse> needyParents() {
         ListParentsResponse result = new ListParentsResponse(personService.getNeedyParents());
         return ResponseEntity.ok(result);
-  }
+    }
 }

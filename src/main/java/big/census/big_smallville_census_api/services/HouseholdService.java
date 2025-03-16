@@ -33,7 +33,8 @@ public class HouseholdService {
         return householdRepository.numberOfDependents(lotNumber);
     }
 
-    public String getLotNumber(String street, String zipcode, String houseNumber, String district, String apartmentNumber) {
+    public String getLotNumber(String street, String zipcode, String houseNumber, String district,
+            String apartmentNumber) {
         return householdRepository.getLotNumber(street, zipcode, houseNumber, district, apartmentNumber);
     }
 
@@ -41,19 +42,18 @@ public class HouseholdService {
      * Fetches household members for the given lot number.
      * 
      * @param lotNumber An integer representing the household’s lot number.
-     * @return          A list of person objects within the requested household. 
-     * @author  Kent Mayoya
+     * @return A list of person objects within the requested household.
+     * @author Kent Mayoya
      */
     public List<Person> getHouseholdMembers(Integer lotNumber) {
         return householdRepository.getHouseholdMembers(lotNumber);
     }
 
-
     /**
      * Checks if a household with a specific lot number exists within the database.
      * 
      * @param lotNumber A household's lot number.
-     * @return          True if it exists. Otherwise, false.
+     * @return True if it exists. Otherwise, false.
      * @author Kent Mayoya
      */
     public boolean lotNumberExists(String lotNumber) {

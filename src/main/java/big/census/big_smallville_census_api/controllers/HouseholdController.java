@@ -37,6 +37,7 @@ public class HouseholdController {
      * 
      * test on
      * http://localhost:8080/api/v1/households/members?lotNumber=00085
+     * 
      * @author Kent Mayoya
      */
     @GetMapping("/members")
