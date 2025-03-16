@@ -8,7 +8,6 @@ import java.util.List;
 import big.census.big_smallville_census_api.entities.Household;
 import big.census.big_smallville_census_api.entities.Person;
 
-
 public interface HouseholdRepository extends JpaRepository<Household, Integer> {
     @Query(nativeQuery = true, value = """
             SELECT COUNT(Person.ID)
@@ -47,30 +46,31 @@ public interface HouseholdRepository extends JpaRepository<Household, Integer> {
      * queried. Unnecessary fields will be filtered out in the front-end.
      * 
      * @param lotNumber An integer representing the household’s lot number.
-     * @return          A list of person objects within the requested household. 
+     * @return A list of person objects within the requested household.
      * @author Kent Mayoya
      */
     @Query(nativeQuery = true, value = """
-        SELECT Person.*
-        FROM Person
-            JOIN Household ON (Person.HouseholdID = Household.ID)
-            JOIN MaritalStatus ON (Person.MaritalStatusID = MaritalStatus.ID)
-        WHERE Person.HouseholdID = :lotNumber
-        ORDER BY Person.SSN
-        """)
+            SELECT Person.*
+            FROM Person
+                JOIN Household ON (Person.HouseholdID = Household.ID)
+                JOIN MaritalStatus ON (Person.MaritalStatusID = MaritalStatus.ID)
+            WHERE Person.HouseholdID = :lotNumber
+            ORDER BY Person.SSN
+            """)
     public List<Person> getHouseholdMembers(@Param("lotNumber") Integer lotNumber);
 
     /**
-     * Queries the database to get the number of Households with a specific lot number.
+     * Queries the database to get the number of Households with a specific lot
+     * number.
      * 
      * @param lotNumber A household's lot number. Limited to 5 characters.
-     * @return          1 if the household exists, otherwise 0.
+     * @return 1 if the household exists, otherwise 0.
      * @author Kent Mayoya
      */
     @Query(nativeQuery = true, value = """
-        SELECT COUNT(*)
-        FROM Household
-        WHERE lotNumber = :lotNumber
-    """)
+                SELECT COUNT(*)
+                FROM Household
+                WHERE lotNumber = :lotNumber
+            """)
     public int lotNumberExists(@Param("lotNumber") String lotNumber);
 }

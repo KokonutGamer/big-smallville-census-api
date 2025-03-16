@@ -20,26 +20,27 @@ public class PersonService {
      * Fetches household members for the given lot number.
      * 
      * @param lotNumber An integer representing the household’s lot number.
-     * @return          True if a person was created. Otherwise, false.
-     * @author  Kent Mayoya
+     * @return True if a person was created. Otherwise, false.
+     * @author Kent Mayoya
      */
     public boolean addPerson(
-        String ssn,
-        MaritalStatus maritalStatus, 
-        String lotNumber, 
-        String firstName, 
-        String lastName, 
-        Date birthDate, 
-        String email, 
-        String phone) {
-        return personRepository.addPerson(ssn, maritalStatus.getId(), lotNumber, firstName, lastName, birthDate, email, phone) > 0;
+            String ssn,
+            MaritalStatus maritalStatus,
+            String lotNumber,
+            String firstName,
+            String lastName,
+            Date birthDate,
+            String email,
+            String phone) {
+        return personRepository.addPerson(ssn, maritalStatus.getId(), lotNumber, firstName, lastName, birthDate, email,
+                phone) > 0;
     }
 
     /**
      * Checks if a person with a specific social security number exists.
      * 
-     * @param ssn   A person's social security number.
-     * @return      True if a person with the ssn exists. Otherwise, false.
+     * @param ssn A person's social security number.
+     * @return True if a person with the ssn exists. Otherwise, false.
      * @author Kent Mayoya
      */
     public boolean ssnExists(String ssn) {

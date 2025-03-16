@@ -28,8 +28,7 @@ public interface BusinessRepository extends JpaRepository<Business, Integer> {
         JOIN E.business AS B
       WHERE B.name = :businessName
       """)
-List<EmployeeNameDto> getEmployeesInABusiness(@Param("businessName") String businessName);
-
+  List<EmployeeNameDto> getEmployeesInABusiness(@Param("businessName") String businessName);
 
   @Query(nativeQuery = true, value = """
       SELECT businessid, revenue, expenses, profit, taxespaid, propertytaxes, year, quarterid
