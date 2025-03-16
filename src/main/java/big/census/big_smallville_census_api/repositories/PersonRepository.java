@@ -77,7 +77,7 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
                     ON c.HouseholdID = p.HouseholdID
                     AND c.ID != p.ID
                 WHERE
-                    ms.name = 'married'
+                    ms.name = 'Married'
                     AND age(current_date, c.Birthdate) < interval '18 years'
                     AND NOT EXISTS (
                         SELECT *
