@@ -789,5 +789,49 @@ INSERT INTO TaxRecord(PersonID, Year, NumOfDependents, TaxesPaid)
 (137, 2021, 3, 1650.00),
 (141, 2021, 3, 1850.00),
 (142, 2021, 3, 1750.00);
+
+
+-- Inserts for needyParents demo
+
+-- Family 1: Johnson family with 3 children under 18
+INSERT INTO Household(LotNumber, Street, ZipCode, HouseNumber, ApartmentNumber, DistrictID)
+VALUES ('00086', 'Poverty Lane', '10086', '8686', '4A', 'AA');
+
+INSERT INTO Person(SSN, MaritalStatusID, HouseholdID, FirstName, LastName, Birthdate, Email, Phone)
+VALUES 
+('000000146', 'M', 86, 'Robert', 'Johnson', '1985-05-15', 'robert.johnson@example.com', '5550100151'),
+('000000147', 'M', 86, 'Sarah', 'Johnson', '1987-06-20', 'sarah.johnson@example.com', '5550100152'),
+('000000148', 'S', 86, 'Jimmy', 'Johnson', '2010-07-10', NULL, NULL),
+('000000149', 'S', 86, 'Timmy', 'Johnson', '2012-08-15', NULL, NULL),
+('000000150', 'S', 86, 'Sally', 'Johnson', '2014-09-20', NULL, NULL);
+
+-- Family 2: Garcia family with 4 children under 18
+INSERT INTO Household(LotNumber, Street, ZipCode, HouseNumber, ApartmentNumber, DistrictID)
+VALUES ('00087', 'Struggle Street', '10087', '8787', '2B', 'BB');
+
+INSERT INTO Person(SSN, MaritalStatusID, HouseholdID, FirstName, LastName, Birthdate, Email, Phone)
+VALUES 
+('000000151', 'M', 87, 'Miguel', 'Garcia', '1983-03-12', 'miguel.garcia@example.com', '5550100153'),
+('000000152', 'M', 87, 'Elena', 'Garcia', '1985-04-18', 'elena.garcia@example.com', '5550100154'),
+('000000153', 'S', 87, 'Carlos', 'Garcia', '2009-05-05', NULL, NULL),
+('000000154', 'S', 87, 'Sofia', 'Garcia', '2011-06-10', NULL, NULL),
+('000000155', 'S', 87, 'Luis', 'Garcia', '2013-07-15', NULL, NULL),
+('000000156', 'S', 87, 'Maria', 'Garcia', '2015-08-20', NULL, NULL);
+
+-- Family 3: Williams family with 5 children under 18
+INSERT INTO Household(LotNumber, Street, ZipCode, HouseNumber, ApartmentNumber, DistrictID)
+VALUES ('00088', 'Hardship Avenue', '10088', '8888', '3C', 'CC');
+
+INSERT INTO Person(SSN, MaritalStatusID, HouseholdID, FirstName, LastName, Birthdate, Email, Phone)
+VALUES 
+('000000157', 'M', 88, 'James', 'Williams', '1982-09-22', 'james.williams@example.com', '5550100155'),
+('000000158', 'M', 88, 'Linda', 'Williams', '1984-10-28', 'linda.williams@example.com', '5550100156'),
+('000000159', 'S', 88, 'John', 'Williams', '2008-11-05', NULL, NULL),
+('000000160', 'S', 88, 'Emily', 'Williams', '2010-12-12', NULL, NULL),
+('000000161', 'S', 88, 'Tyler', 'Williams', '2012-01-15', NULL, NULL),
+('000000162', 'S', 88, 'Hannah', 'Williams', '2014-02-20', NULL, NULL),
+('000000163', 'S', 88, 'Jason', 'Williams', '2016-03-25', NULL, NULL);
+
+
 COMMIT;
 
