@@ -22,8 +22,9 @@ public interface BusinessRepository extends JpaRepository<Business, Integer> {
   BigDecimal avgEmployeeIncome(@Param("businessName") String businessName);
 
   /**
-   * List Employees In A Business 
-   * Show first name, last name, and income of all employees based on a given business name.
+   * List Employees In A Business
+   * Show first name, last name, and income of all employees based on a given
+   * business name.
    * This help analyze the condition of the business selected.
    * 
    * DTO projections implemented to display only information we want to see.
@@ -35,17 +36,23 @@ public interface BusinessRepository extends JpaRepository<Business, Integer> {
    * @return a list of employees' first names, last names, and incomes
    * @author Ting Gao & Gabe Lapingcao
    */
-  @Query(nativeQuery = true, value =
-    """
-    SELECT P.firstName, P.lastName, E.income
-    FROM Employee AS E
-      JOIN Person AS P ON P.ID = E.personID
-      JOIN Business AS B ON B.ID = E.businessID
-    WHERE B.name = :businessName;
-    """
-    )
+  @Query(nativeQuery = true, value = """
+      SELECT P.firstName, P.lastName, E.income
+      FROM Employee AS E
+        JOIN Person AS P ON P.ID = E.personID
+        JOIN Business AS B ON B.ID = E.businessID
+      WHERE B.name = :businessName;
+      """)
   List<EmployeeDto> getEmployeesInABusiness(@Param("businessName") String businessName);
 
+  /**
+   * @author David Phillips
+   * @description queries a list of business records form a given business name:
+   *              each record contains businessid, revenue, expenses, profit,
+   *              taxespaid, propertytaxes, year, quarterid
+   * @param businessName
+   * @return the query response: list of business records
+   */
   @Query(nativeQuery = true, value = """
       SELECT businessid, revenue, expenses, profit, taxespaid, propertytaxes, year, quarterid
       FROM businessrecord
@@ -54,6 +61,14 @@ public interface BusinessRepository extends JpaRepository<Business, Integer> {
       """)
   List<BusinessRecord> getRecordsOfABusiness(@Param("businessName") String businessName);
 
+  /**
+   * @author David Phillips
+   * @description updates all employee wages of a company below a threshold to be
+   *              at that threshold, runs UPDATE within a with statement to allow
+   *              the amount of updates to be counted and returned
+   * @param businessName, newWage:
+   * @return WageUpdateResponse: A count of the employees updated
+   */
   @Query(nativeQuery = true, value = """
       WITH updated_rows AS (
           UPDATE employee
