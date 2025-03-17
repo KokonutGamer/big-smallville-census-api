@@ -21,7 +21,8 @@ public class BusinessService {
     }
 
     /**
-     * Show first name, last name, and income of all employees based on a given business name.
+     * Show first name, last name, and income of all employees based on a given
+     * business name.
      * 
      * @param businessName the given business name
      * @return a list of employees' first names, last names, and incomes
@@ -32,10 +33,25 @@ public class BusinessService {
         return businessRepository.getEmployeesInABusiness(businessName);
     }
 
+    /**
+     * @author David Phillips
+     * @description returns a list of business records form a given business name
+     * @param businessName
+     * @return BusinessRecordResponse: a wrapper class which holds a list of
+     *         business
+     *         objects
+     */
     public List<BusinessRecord> listRecordsOfABusiness(String businessName) {
         return businessRepository.getRecordsOfABusiness(businessName);
     }
 
+    /**
+     * @author David Phillips
+     * @description updates all employee wages of a company below a threshold to be
+     *              at that threshold
+     * @param businessName, newWage:
+     * @return WageUpdateResponse: A count of the employees updated
+     */
     public int updateMinWage(String businessName, Integer newWage) {
         return businessRepository.updateMinWage(businessName, newWage);
     }
