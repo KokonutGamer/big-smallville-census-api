@@ -74,7 +74,7 @@ public interface BusinessRepository extends JpaRepository<Business, Integer> {
           UPDATE employee
           SET income = :newWage
           WHERE income < :newWage
-          AND businessID = (SELECT ID FROM business WHERE name = :businessName)
+          AND businessID = (SELECT ID FROM business WHERE name = :businessName FOR UPDATE)
           RETURNING 1
       )
       SELECT COUNT(*) FROM updated_rows;
