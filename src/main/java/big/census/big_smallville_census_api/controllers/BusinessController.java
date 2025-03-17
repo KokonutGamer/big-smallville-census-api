@@ -3,6 +3,7 @@ package big.census.big_smallville_census_api.controllers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,7 +56,7 @@ public class BusinessController {
    * @return WageUpdateResponse: A count of the employees updated
    * @testOn http://localhost:8080/api/v1/businesses/updateMinWage?businessName=Serious%20Business&newWage=70000
    */
-  @GetMapping("/updateMinWage")
+  @PutMapping("/updateMinWage")
   ResponseEntity<WageUpdateResponse> updateMinWage(@RequestParam String businessName, @RequestParam Integer newWage) {
     WageUpdateResponse result = new WageUpdateResponse(businessService.updateMinWage(businessName, newWage));
     return ResponseEntity.ok(result);
