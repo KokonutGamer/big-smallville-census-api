@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 
+import big.census.big_smallville_census_api.dtos.PersonDto;
 import big.census.big_smallville_census_api.entities.Person;
 import java.util.List;
 import java.util.Date;
@@ -63,10 +64,8 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
 
     @Query(nativeQuery = true, value = """
                 SELECT
-                    p.ID,
-                    p.FirstName,
-                    p.LastName,
-                    COUNT(c.ID) AS num_children
+                    p.ssn, p.firstname, p.lastname, ms.name,
+                    p.birthdate, p.email, p.phone
                 FROM
                     Person p
                 JOIN
@@ -88,9 +87,10 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
                         AND pt.Name = 'House'
                     )
                 GROUP BY
-                    p.ID, p.FirstName, p.LastName
+                    p.ssn, p.firstname, p.lastname, ms.name,
+                    p.birthdate, p.email, p.phone
                 HAVING
                     COUNT(c.ID) >= 3
             """)
-    public List<Person> getNeedyParents();
+    public List<PersonDto> getNeedyParents();
 }

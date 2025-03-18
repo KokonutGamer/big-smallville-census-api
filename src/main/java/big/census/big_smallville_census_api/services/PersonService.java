@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import big.census.big_smallville_census_api.repositories.PersonRepository;
-
+import big.census.big_smallville_census_api.dtos.PersonDto;
 import big.census.big_smallville_census_api.entities.MaritalStatus;
-import big.census.big_smallville_census_api.entities.Person;
 
 import java.util.Date;
 import java.util.List;
@@ -47,7 +46,7 @@ public class PersonService {
         return personRepository.ssnExists(ssn) > 0;
     }
 
-    public List<Person> getNeedyParents() {
+    public List<PersonDto> getNeedyParents() {
         return personRepository.getNeedyParents();
     }
 }
