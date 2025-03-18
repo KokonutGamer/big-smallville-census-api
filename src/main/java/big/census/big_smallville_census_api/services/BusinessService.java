@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import big.census.big_smallville_census_api.entities.BusinessRecord;
+import big.census.big_smallville_census_api.dtos.BusinessRecordDto;
 import big.census.big_smallville_census_api.dtos.EmployeeDto;
 
 import big.census.big_smallville_census_api.repositories.BusinessRepository;
@@ -21,11 +21,11 @@ public class BusinessService {
     }
 
     /**
-     * Show first name, last name, and income of employees earning less than a 
+     * Show first name, last name, and income of employees earning less than a
      * limit given based on a given business name.
      * 
      * @param businessName the given business name
-     * @param incomeLimit the given income limit
+     * @param incomeLimit  the given income limit
      * @return a list of employees' first names, last names, and incomes
      * 
      * @author Ting Gao
@@ -39,10 +39,9 @@ public class BusinessService {
      * @description returns a list of business records form a given business name
      * @param businessName
      * @return BusinessRecordResponse: a wrapper class which holds a list of
-     *         business
-     *         objects
+     *         business objects DTOs
      */
-    public List<BusinessRecord> listRecordsOfABusiness(String businessName) {
+    public List<BusinessRecordDto> listRecordsOfABusiness(String businessName) {
         return businessRepository.getRecordsOfABusiness(businessName);
     }
 

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import big.census.big_smallville_census_api.entities.Business;
-import big.census.big_smallville_census_api.entities.BusinessRecord;
+import big.census.big_smallville_census_api.dtos.BusinessRecordDto;
 import big.census.big_smallville_census_api.dtos.EmployeeDto;
 
 public interface BusinessRepository extends JpaRepository<Business, Integer> {
@@ -23,7 +23,7 @@ public interface BusinessRepository extends JpaRepository<Business, Integer> {
 
   /**
    * List Employees In A Business
-   * Show first name, last name, and income of employees earning less than a 
+   * Show first name, last name, and income of employees earning less than a
    * limit given based on a given business name.
    * This help analyze the condition of the business selected.
    * 
@@ -33,7 +33,7 @@ public interface BusinessRepository extends JpaRepository<Business, Integer> {
    * DTO turned into an interface to use native query.
    * 
    * @param businessName the given business name
-   * @param incomeLimit the given income limit
+   * @param incomeLimit  the given income limit
    * @return a list of employees' first names, last names, and incomes
    * @author Ting Gao & Gabe Lapingcao
    */
@@ -44,23 +44,24 @@ public interface BusinessRepository extends JpaRepository<Business, Integer> {
         JOIN Business AS B ON B.ID = E.businessID
       WHERE B.name = :businessName AND E.income < :incomeLimit;
       """)
-  List<EmployeeDto> getEmployeesInABusiness(@Param("businessName") String businessName, @Param("incomeLimit") BigDecimal incomeLimit);
+  List<EmployeeDto> getEmployeesInABusiness(@Param("businessName") String businessName,
+      @Param("incomeLimit") BigDecimal incomeLimit);
 
   /**
    * @author David Phillips
    * @description queries a list of business records form a given business name:
-   *              each record contains businessid, revenue, expenses, profit,
+   *              each record contains revenue, expenses, profit,
    *              taxespaid, propertytaxes, year, quarterid
    * @param businessName
-   * @return the query response: list of business records
+   * @return the query response: list of business record DTOs
    */
   @Query(nativeQuery = true, value = """
-      SELECT businessid, revenue, expenses, profit, taxespaid, propertytaxes, year, quarterid
-      FROM businessrecord
-        JOIN business ON (businessrecord.businessID = business.ID)
-      WHERE name = :businessName;
+      SELECT BR.revenue, BR.expenses, BR.profit, BR.taxespaid, BR.propertytaxes, BR.year, BR.quarterid
+      FROM businessrecord AS BR
+        JOIN business AS B ON (BR.businessID = B.ID)
+      WHERE B.name = :businessName;
       """)
-  List<BusinessRecord> getRecordsOfABusiness(@Param("businessName") String businessName);
+  List<BusinessRecordDto> getRecordsOfABusiness(@Param("businessName") String businessName);
 
   /**
    * @author David Phillips

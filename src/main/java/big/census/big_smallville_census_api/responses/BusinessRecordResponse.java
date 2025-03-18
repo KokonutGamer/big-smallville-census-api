@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.util.List;
 
-import big.census.big_smallville_census_api.entities.BusinessRecord;
+import big.census.big_smallville_census_api.dtos.BusinessRecordDto;
 
 @Data
 @AllArgsConstructor
 public class BusinessRecordResponse {
-    private List<BusinessRecord> busRecords;
+    private List<BusinessRecordDto> busRecords;
 }
