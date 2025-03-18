@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,7 +50,7 @@ public class PersonController {
      * 
      * @author Kent Mayoya
      */
-    @GetMapping("/add")
+    @PutMapping("/add")
     ResponseEntity<AddPersonResponse> addPerson(
             @RequestParam String ssn,
             @RequestParam MaritalStatus maritalStatusID,
