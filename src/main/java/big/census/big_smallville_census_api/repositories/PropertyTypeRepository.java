@@ -33,7 +33,7 @@ public interface PropertyTypeRepository extends JpaRepository<PropertyType, Stri
     BEGIN;
     UPDATE PropertyType
     SET taxPercentage = :newTaxPercentage
-    WHERE name = :propertyTypeName;
+    WHERE id = (SELECT id FROM PropertyType WHERE name = :propertyTypeName);
     COMMIT;
     """
     )
