@@ -54,7 +54,6 @@ public interface HouseholdRepository extends JpaRepository<Household, Integer> {
             SELECT Person.ssn, Person.firstname, Person.lastname, MaritalStatus.name,
                 Person.birthdate, Person.email, Person.phone
             FROM Person
-                JOIN Household ON (Person.HouseholdID = Household.ID)
                 JOIN MaritalStatus ON (Person.MaritalStatusID = MaritalStatus.ID)
             WHERE Person.HouseholdID = :lotNumber
             ORDER BY Person.SSN
