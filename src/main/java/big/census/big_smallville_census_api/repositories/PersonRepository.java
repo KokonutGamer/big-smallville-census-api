@@ -20,7 +20,8 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
      * Inserts a person into the database.
      * 
      * @param ssn             A person's social security number, 9 characters long.
-     * @param maritalStatusID A person's marital status, e.g. 'S', 'M', etc.
+     * @param maritalStatusID A person's marital status, e.g. 'S', 'M', etc. The
+     *                        argument Values are restricted on the front-end.
      * @param lotNumber       A household's lot number. The person is assigned to
      *                        this household if it exists.
      * @param firstName       A person's first name. Limited to 20 characters.
