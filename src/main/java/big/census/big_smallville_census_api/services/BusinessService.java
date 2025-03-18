@@ -21,16 +21,17 @@ public class BusinessService {
     }
 
     /**
-     * Show first name, last name, and income of all employees based on a given
-     * business name.
+     * Show first name, last name, and income of employees earning less than a 
+     * limit given based on a given business name.
      * 
      * @param businessName the given business name
+     * @param incomeLimit the given income limit
      * @return a list of employees' first names, last names, and incomes
      * 
      * @author Ting Gao
      */
-    public List<EmployeeDto> listEmployeesInABusiness(String businessName) {
-        return businessRepository.getEmployeesInABusiness(businessName);
+    public List<EmployeeDto> listEmployeesInABusiness(String businessName, BigDecimal incomeLimit) {
+        return businessRepository.getEmployeesInABusiness(businessName, incomeLimit);
     }
 
     /**

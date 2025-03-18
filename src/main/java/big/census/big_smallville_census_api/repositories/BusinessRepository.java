@@ -23,8 +23,8 @@ public interface BusinessRepository extends JpaRepository<Business, Integer> {
 
   /**
    * List Employees In A Business
-   * Show first name, last name, and income of all employees based on a given
-   * business name.
+   * Show first name, last name, and income of employees earning less than a 
+   * limit given based on a given business name.
    * This help analyze the condition of the business selected.
    * 
    * DTO projections implemented to display only information we want to see.
@@ -33,6 +33,7 @@ public interface BusinessRepository extends JpaRepository<Business, Integer> {
    * DTO turned into an interface to use native query.
    * 
    * @param businessName the given business name
+   * @param incomeLimit the given income limit
    * @return a list of employees' first names, last names, and incomes
    * @author Ting Gao & Gabe Lapingcao
    */
@@ -41,9 +42,9 @@ public interface BusinessRepository extends JpaRepository<Business, Integer> {
       FROM Employee AS E
         JOIN Person AS P ON P.ID = E.personID
         JOIN Business AS B ON B.ID = E.businessID
-      WHERE B.name = :businessName;
+      WHERE B.name = :businessName AND E.income < :incomeLimit;
       """)
-  List<EmployeeDto> getEmployeesInABusiness(@Param("businessName") String businessName);
+  List<EmployeeDto> getEmployeesInABusiness(@Param("businessName") String businessName, @Param("incomeLimit") BigDecimal incomeLimit);
 
   /**
    * @author David Phillips

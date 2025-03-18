@@ -1,5 +1,7 @@
 package big.census.big_smallville_census_api.controllers;
 
+import java.math.BigDecimal;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,18 +65,18 @@ public class BusinessController {
   }
 
   /**
-   * Show first name, last name, and income of all employees based on a given
-   * business name
+   * Show first name, last name, and income of employees earning less than a 
+   * limit given based on a given business name.
    * 
    * Test on
-   * http://localhost:8080/api/v1/businesses/listEmployees?businessName=Serious%20Business
-   * The given business name is 'Serious Business'
+   * http://localhost:8080/api/v1/businesses/listEmployees?businessName=Serious%20Business&incomeLimit=100000
+   * The given business name is 'Serious Business' and given income limit is 100000
    * 
    * @author Ting Gao
    */
   @GetMapping("/listEmployees")
-  ResponseEntity<ListEmployeesResponse> listEmployees(@RequestParam String businessName) {
-    ListEmployeesResponse result = new ListEmployeesResponse(businessService.listEmployeesInABusiness(businessName));
+  ResponseEntity<ListEmployeesResponse> listEmployees(@RequestParam String businessName, @RequestParam BigDecimal incomeLimit) {
+    ListEmployeesResponse result = new ListEmployeesResponse(businessService.listEmployeesInABusiness(businessName, incomeLimit));
     return ResponseEntity.ok(result);
   }
 }
