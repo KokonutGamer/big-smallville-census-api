@@ -17,7 +17,7 @@ import big.census.big_smallville_census_api.services.PropertyTypeService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api/v1/propertyType")
+@RequestMapping("/api/v1/properties")
 public class PropertyTypeController{
   private final PropertyTypeService propertyTypeService;
 
@@ -29,15 +29,15 @@ public class PropertyTypeController{
    * Update the tax percentage based on a given property type name
    * 
    * Test by running the following code in bash
-   * curl -X PUT -H "Content-Type: application/json" -d "0.8" http://localhost:8080/api/v1/propertyType/Vehicle/taxPercentage
+   * curl -X PUT -H "Content-Type: application/json" -d "0.8" http://localhost:8080/api/v1/properties/Vehicle/taxPercentage
    * The given property type name is 'Vehicle' and new tax percentage is 0.8
    * This should return 1
    * 
-   * curl -X PUT -H "Content-Type: application/json" -d "0.8" http://localhost:8080/api/v1/propertyType/Air/taxPercentage
+   * curl -X PUT -H "Content-Type: application/json" -d "0.8" http://localhost:8080/api/v1/properties/Air/taxPercentage
    * The given property type name is 'Air'
    * This should return 0
    * 
-   * curl -X PUT -H "Content-Type: application/json" -d "-1" http://localhost:8080/api/v1/propertyType/Vehicle/taxPercentage
+   * curl -X PUT -H "Content-Type: application/json" -d "-1" http://localhost:8080/api/v1/properties/Vehicle/taxPercentage
    * The new percentage is -1
    * This should return 0
    * 
@@ -55,7 +55,7 @@ public class PropertyTypeController{
    * Display PropertyType Table (excluding ID) to verify updateTaxPercentageForASpecificPropertyType
    * 
    * View the table on
-   * http://localhost:8080/api/v1/propertyType/displayPropertyTypeTable
+   * http://localhost:8080/api/v1/properties/displayPropertyTypeTable
    * 
    * @return all property types' names and tax percentages
    * 
