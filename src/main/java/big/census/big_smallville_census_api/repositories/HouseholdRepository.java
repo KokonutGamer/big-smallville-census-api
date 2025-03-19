@@ -42,9 +42,6 @@ public interface HouseholdRepository extends JpaRepository<Household, Integer> {
      * statistics for each household in Smallville. This information is useful to
      * track Smallville’s population and demographics over time.
      * 
-     * To remain consistent with Person class defined in Person.java, all fields are
-     * queried. Unnecessary fields will be filtered out in the front-end.
-     * 
      * @param lotNumber An integer representing the household’s lot number.
      * @param limit     An integer representing the maximum number of rows to return.
      * @return A list of person objects within the requested household.
