@@ -9,6 +9,7 @@ import big.census.big_smallville_census_api.entities.MaritalStatus;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PersonService {
@@ -29,8 +30,8 @@ public class PersonService {
             String firstName,
             String lastName,
             Date birthDate,
-            String email,
-            String phone) {
+            Optional<String> email,
+            Optional<String> phone) {
         return personRepository.addPerson(ssn, maritalStatus.getId(), lotNumber, firstName, lastName, birthDate, email,
                 phone) > 0;
     }

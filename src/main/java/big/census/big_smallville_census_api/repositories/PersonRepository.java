@@ -10,6 +10,7 @@ import big.census.big_smallville_census_api.dtos.PersonDto;
 import big.census.big_smallville_census_api.entities.Person;
 import java.util.List;
 import java.util.Date;
+import java.util.Optional;
 
 public interface PersonRepository extends JpaRepository<Person, Integer> {
     @Query(nativeQuery = true, value = "SELECT Household.lotNumber FROM Household JOIN Person ON Person.householdID = Household.ID WHERE Person.ssn =:ssn")
@@ -46,8 +47,8 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
             @Param("firstName") String firstName,
             @Param("lastName") String lastName,
             @Param("birthdate") Date birthDate,
-            @Param("email") String email,
-            @Param("phone") String phone);
+            @Param("email") Optional<String> email,
+            @Param("phone") Optional<String> phone);
 
     /**
      * Queries the database to get the number of People with a specific ssn.

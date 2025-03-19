@@ -19,6 +19,7 @@ import big.census.big_smallville_census_api.services.PersonService;
 import big.census.big_smallville_census_api.entities.MaritalStatus;
 
 import java.util.Date;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -58,8 +59,8 @@ public class PersonController {
             @RequestParam String firstName,
             @RequestParam String lastName,
             @RequestParam @DateTimeFormat(pattern = "MM-dd-yyyy") Date birthDate,
-            @RequestParam String email,
-            @RequestParam String phone) {
+            @RequestParam Optional<String> email,
+            @RequestParam Optional<String> phone) {
         boolean lotNumberExists = householdService.lotNumberExists(lotNumber);
         boolean uniqueSSN = !personService.ssnExists(ssn);
         if (!lotNumberExists || !uniqueSSN) {
