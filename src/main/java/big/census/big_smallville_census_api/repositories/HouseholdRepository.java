@@ -63,6 +63,7 @@ public interface HouseholdRepository extends JpaRepository<Household, Integer> {
             @Param("limit") Integer limit);
 
     /**
+     * Supporting Query -- DO NOT GRADE
      * Queries the database to get the number of Households with a specific lot
      * number.
      * 

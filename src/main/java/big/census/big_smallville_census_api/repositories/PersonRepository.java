@@ -51,6 +51,7 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
             @Param("phone") Optional<String> phone);
 
     /**
+     * Supporting Query -- DO NOT GRADE
      * Queries the database to get the number of People with a specific ssn.
      * 
      * @param ssn A person's social security number, 9 characters long.
