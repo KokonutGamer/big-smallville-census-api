@@ -12,6 +12,11 @@ import big.census.big_smallville_census_api.entities.BusinessRecord;
 import big.census.big_smallville_census_api.dtos.EmployeeDto;
 
 public interface BusinessRepository extends JpaRepository<Business, Integer> {
+  /**
+   * @pararm businessName the given business name
+   * @return a decimal average of all the incomes for people in a given business
+   * @author Alan Talavera-Cordova
+   */
   @Query(nativeQuery = true, value = """
       SELECT AVG(e.income) as \"Income Average\"
       FROM	Person p

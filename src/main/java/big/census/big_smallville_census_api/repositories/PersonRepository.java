@@ -61,6 +61,14 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
             """)
     public int ssnExists(@Param("ssn") String ssn);
 
+    /**
+     * find all struggling parents (parents that have at least 3 dependents,
+     * people under 18 years old in the household, and that don't have a property tax 
+     * record with type of 'House')
+     * 
+     * @return a list of people entities
+     * @author Alan Talavera-Cordova
+     */
     @Query(nativeQuery = true, value = """
                 SELECT
                     p.ID,
