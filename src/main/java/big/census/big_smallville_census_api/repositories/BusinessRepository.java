@@ -42,7 +42,7 @@ public interface BusinessRepository extends JpaRepository<Business, Integer> {
       FROM Employee AS E
         JOIN Person AS P ON P.ID = E.personID
         JOIN Business AS B ON B.ID = E.businessID
-      WHERE B.name = :businessName AND E.income < :incomeLimit;
+      WHERE B.name ILIKE :businessName AND E.income < :incomeLimit;
       """)
   List<EmployeeDto> getEmployeesInABusiness(@Param("businessName") String businessName,
       @Param("incomeLimit") BigDecimal incomeLimit);

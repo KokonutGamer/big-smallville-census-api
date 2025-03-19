@@ -33,7 +33,7 @@ public interface PropertyTypeRepository extends JpaRepository<PropertyType, Stri
     BEGIN;
     UPDATE PropertyType
     SET taxPercentage = :newTaxPercentage
-    WHERE id = (SELECT id FROM PropertyType WHERE name = :propertyTypeName);
+    WHERE id = (SELECT id FROM PropertyType WHERE name ILIKE :propertyTypeName);
     COMMIT;
     """
     )
@@ -52,7 +52,7 @@ public interface PropertyTypeRepository extends JpaRepository<PropertyType, Stri
     """
     SELECT COUNT(*) = 1
     FROM propertytype
-    WHERE name = :typeName;
+    WHERE name ILIKE :typeName;
     """
     )
   boolean isTypeValid(@Param("typeName") String typeName);
