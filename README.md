@@ -32,8 +32,45 @@ BIG is the world's leading data analytics organization (*source: trust me*). At 
 - Kent Mayoya
 - Ting Gao
 
-## Demo Inputs
+## Demo HTTP Requests
 
-listBusinessRecords: "Serious Business"
+### Persons
+- Calculate incentives
+  - HTTP method: `GET`
+  - http://localhost:8080/api/v1/persons/incentive?ssn=000000156
+- Add a new person
+  - HTTP method: `PUT`
+  - `curl -X PUT -H "Content-Type: application/json" "http://localhost:8080/api/v1/persons/add?ssn=000000146&maritalStatusID=S&lotNumber=00001&firstName=Joe&lastName=Mama&birthDate=01-01-1945&email=joe.mama@example.com&phone=5550100151"`
+- List married parents/guardians who have at least a number of children and do not own a house
+  - HTTP method: `GET`
+  - http://localhost:8080/api/v1/persons/needyParents
 
-updateMinWage: "Serious Business" and 70000
+### Households
+- Get the lot number of a household
+  - HTTP method: `GET`
+  - http://localhost:8080/api/v1/households/lot-number?street=struggle%20street&zipcode=10087&house-number=8787&district=brookfield%20bay&apartment-number=2B
+- List the members of a household
+  - HTTP method: `GET`
+  - http://localhost:8080/api/v1/households/members?lotNumber=00085&limit=5
+
+### Businesses
+- Average income of employees at a business
+  - HTTP method: `GET`
+  - http://localhost:8080/api/v1/businesses/avgincome?businessName=Business%201
+- List all business records
+  - HTTP method: `GET`
+  - http://localhost:8080/api/v1/businesses/listBusRecords?businessName=Serious%20Business
+- Update minimum wages
+  - HTTP method: `PUT`, no body needed
+  - `curl -X PUT -H "Content-Type: application/json" "http://localhost:8080/api/v1/businesses/updateMinWage?businessName=Serious%20Business&newWage=99999994"`
+- List employees in a business
+  - HTTP method: `GET`
+  - http://localhost:8080/api/v1/businesses/listEmployees?businessName=Serious%20Business&incomeLimit=100000
+
+### Properties
+- List property types
+  - HTTP method: `GET`
+  - http://localhost:8080/api/v1/properties/displayPropertyTypeTable
+- Update tax percentage of a property type
+  - HTTP method: `PUT`
+  - `curl -X PUT -H "Content-Type: application/json" -d "0.8" http://localhost:8080/api/v1/properties/Vehicle/taxPercentage`
