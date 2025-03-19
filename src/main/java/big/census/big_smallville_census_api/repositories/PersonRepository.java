@@ -95,4 +95,11 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
                     COUNT(c.ID) >= 3
             """)
     public List<PersonDto> getNeedyParents();
+
+    @Query(nativeQuery = true, value = """
+            SELECT AGE(Person.birthdate) < INTERVAL '18 years'
+            FROM Person
+            WHERE Person.ssn = :ssn
+            """)
+    public Boolean isDependent(@Param("ssn") String ssn);
 }

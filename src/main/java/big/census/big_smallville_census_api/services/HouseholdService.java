@@ -29,6 +29,9 @@ public class HouseholdService {
     }
 
     public Integer getNumberOfDependentsOfPerson(String ssn) {
+        if(personRepository.isDependent(ssn)) {
+            return 0;
+        }
         String lotNumber = personRepository.getLotNumberOfPerson(ssn);
         return householdRepository.numberOfDependents(lotNumber);
     }
