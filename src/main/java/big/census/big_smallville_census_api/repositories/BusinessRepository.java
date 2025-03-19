@@ -40,7 +40,7 @@ public interface BusinessRepository extends JpaRepository<Business, Integer> {
    * @param businessName the given business name
    * @param incomeLimit  the given income limit
    * @return a list of employees' first names, last names, and incomes
-   * @author Ting Gao & Gabe Lapingcao
+   * @author Ting Gao
    */
   @Query(nativeQuery = true, value = """
       SELECT P.firstName, P.lastName, E.income

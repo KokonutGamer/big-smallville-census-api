@@ -9,6 +9,17 @@ import big.census.big_smallville_census_api.entities.Household;
 import big.census.big_smallville_census_api.dtos.PersonDto;
 
 public interface HouseholdRepository extends JpaRepository<Household, Integer> {
+
+    /**
+     * <p>
+     * Retrieve the number of dependents within a household. Used in tandem with
+     * {@link big.census.big_smallville_census_api.repositories.PersonRepository.getLotNumberOfPerson}.
+     * </p>
+     * 
+     * @author Gabe Lapingcao
+     * @param lotNumber the lot number of the address of the household
+     * @return the number of dependents within the household
+     */
     @Query(nativeQuery = true, value = """
             SELECT COUNT(Person.ID)
             FROM Household
@@ -18,6 +29,19 @@ public interface HouseholdRepository extends JpaRepository<Household, Integer> {
             """)
     Integer numberOfDependents(@Param("lotNumber") String lotNumber);
 
+    /**
+     * <p>
+     * Retrieve the lot number associated with the specified address.
+     * </p>
+     * 
+     * @author Gabe Lapingcao
+     * @param street          the street component of the address
+     * @param zipcode         the zipcode component of the address
+     * @param houseNumber     the house number component of the address
+     * @param district        the district the address is located within
+     * @param apartmentNumber the apartment number of the house (nullable)
+     * @return the lot number associated with the specified address
+     */
     @Query(nativeQuery = true, value = """
             SELECT lotNumber
             FROM Household
@@ -43,7 +67,8 @@ public interface HouseholdRepository extends JpaRepository<Household, Integer> {
      * track Smallville’s population and demographics over time.
      * 
      * @param lotNumber An integer representing the household’s lot number.
-     * @param limit     An integer representing the maximum number of rows to return.
+     * @param limit     An integer representing the maximum number of rows to
+     *                  return.
      * @return A list of person objects within the requested household.
      * @author Kent Mayoya
      */

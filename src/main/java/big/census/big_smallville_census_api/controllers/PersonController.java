@@ -35,7 +35,21 @@ public class PersonController {
         this.personService = personService;
     }
 
-    // test on http://localhost:8080/api/v1/persons/incentive?ssn=000000145
+    /**
+     * <h2>Complex API (60 points)</h2>
+     * 
+     * <p>
+     * Retrieves the tax percentage amount used for incentive calculations for a
+     * given Social Security Number. Requires multiple query calls to the database
+     * including a query with a left join for counting the number of dependents
+     * within a household.
+     * </p>
+     * 
+     * @author Gabe Lapingcao
+     * @param ssn the given person's Social Security Number
+     * @return an HTTP response entity with the incentive amount
+     * @see {@link big.census.big_smallville_census_api.services.HouseholdService}
+     */
     @GetMapping("/incentive")
     ResponseEntity<IncentiveResponse> calculateIncentives(@RequestParam String ssn) {
         IncentiveResponse result = new IncentiveResponse(

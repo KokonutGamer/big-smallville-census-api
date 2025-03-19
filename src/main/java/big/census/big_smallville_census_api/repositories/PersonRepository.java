@@ -13,7 +13,24 @@ import java.util.Date;
 import java.util.Optional;
 
 public interface PersonRepository extends JpaRepository<Person, Integer> {
-    @Query(nativeQuery = true, value = "SELECT Household.lotNumber FROM Household JOIN Person ON Person.householdID = Household.ID WHERE Person.ssn =:ssn")
+
+    /**
+     * <p>
+     * Retrieve the lot number of the person associated with the given Social
+     * Security Number. Used in tandem with
+     * {@link big.census.big_smallville_census_api.repositories.HouseholdRepository.numberOfDependents}.
+     * </p>
+     * 
+     * @author Gabe Lapingcao
+     * @param ssn the given person's Social Security Number
+     * @return the lot number of the household associated with the given person
+     */
+    @Query(nativeQuery = true, value = """
+            SELECT Household.lotNumber
+            FROM Household
+                JOIN Person ON Person.householdID = Household.ID
+            WHERE Person.ssn =:ssn
+            """)
     public String getLotNumberOfPerson(@Param("ssn") String ssn);
 
     /**
@@ -105,6 +122,18 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
             """)
     public List<PersonDto> getNeedyParents();
 
+    /**
+     * <p>
+     * Checks whether the person associated with the given Social Security Number is
+     * under the age of 18.
+     * </p>
+     * 
+     * @author Gabe Lapingcao
+     * @param ssn the given person's Social Security Number
+     * @return a boolean value equal to true if the given person is under 18 years
+     *         of age
+     * 
+     */
     @Query(nativeQuery = true, value = """
             SELECT AGE(Person.birthdate) < INTERVAL '18 years'
             FROM Person

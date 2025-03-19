@@ -21,8 +21,24 @@ public class HouseholdController {
     @Autowired
     private HouseholdService householdService;
 
-    // test on
-    // http://localhost:8080/api/v1/households/lot-number?street=wildflower%20ln&zipcode=10007&house-number=707&district=greenwood%20south
+    /**
+     * <h2>List API (40 points)</h2>
+     * 
+     * <p>
+     * Retrieves the lot number associated with the specified address. The apartment
+     * number in the request is an optional field, allowing households that are not
+     * located in apartments to leave the field blank.
+     * </p>
+     * 
+     * @author Gabe Lapingcao
+     * @param street          the street component of the address
+     * @param zipcode         the zipcode component of the address
+     * @param houseNumber     the house number component of the address
+     * @param district        the district the address is located within
+     * @param apartmentNumber the apartment number of the house (optional)
+     * @return the lot number associated with the specified address
+     * @see {@link big.census.big_smallville_census_api.services.HouseholdService}
+     */
     @GetMapping("/lot-number")
     ResponseEntity<LotNumberResponse> getLotNumber(@RequestParam String street, @RequestParam String zipcode,
             @RequestParam("house-number") String houseNumber, @RequestParam String district,
