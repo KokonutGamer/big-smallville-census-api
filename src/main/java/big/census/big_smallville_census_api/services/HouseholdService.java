@@ -29,6 +29,9 @@ public class HouseholdService {
     }
 
     public Integer getNumberOfDependentsOfPerson(String ssn) {
+        if(personRepository.isDependent(ssn)) {
+            return 0;
+        }
         String lotNumber = personRepository.getLotNumberOfPerson(ssn);
         return householdRepository.numberOfDependents(lotNumber);
     }
@@ -42,11 +45,12 @@ public class HouseholdService {
      * Fetches household members for the given lot number.
      * 
      * @param lotNumber An integer representing the household’s lot number.
+     * @param limit     An integer representing the maximum number of rows to return.
      * @return A list of person objects within the requested household.
      * @author Kent Mayoya
      */
-    public List<PersonDto> getHouseholdMembers(Integer lotNumber) {
-        return householdRepository.getHouseholdMembers(lotNumber);
+    public List<PersonDto> getHouseholdMembers(Integer lotNumber, Integer limit) {
+        return householdRepository.getHouseholdMembers(lotNumber, limit);
     }
 
     /**

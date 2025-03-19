@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import big.census.big_smallville_census_api.repositories.PersonRepository;
-
+import big.census.big_smallville_census_api.dtos.PersonDto;
 import big.census.big_smallville_census_api.entities.MaritalStatus;
-import big.census.big_smallville_census_api.entities.Person;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PersonService {
@@ -30,8 +30,8 @@ public class PersonService {
             String firstName,
             String lastName,
             Date birthDate,
-            String email,
-            String phone) {
+            Optional<String> email,
+            Optional<String> phone) {
         return personRepository.addPerson(ssn, maritalStatus.getId(), lotNumber, firstName, lastName, birthDate, email,
                 phone) > 0;
     }
@@ -47,7 +47,7 @@ public class PersonService {
         return personRepository.ssnExists(ssn) > 0;
     }
 
-    public List<Person> getNeedyParents() {
+    public List<PersonDto> getNeedyParents() {
         return personRepository.getNeedyParents();
     }
 }

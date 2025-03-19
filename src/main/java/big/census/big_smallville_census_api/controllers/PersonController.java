@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ import big.census.big_smallville_census_api.services.PersonService;
 import big.census.big_smallville_census_api.entities.MaritalStatus;
 
 import java.util.Date;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -49,7 +51,7 @@ public class PersonController {
      * 
      * @author Kent Mayoya
      */
-    @GetMapping("/add")
+    @PutMapping("/add")
     ResponseEntity<AddPersonResponse> addPerson(
             @RequestParam String ssn,
             @RequestParam MaritalStatus maritalStatusID,
@@ -57,8 +59,8 @@ public class PersonController {
             @RequestParam String firstName,
             @RequestParam String lastName,
             @RequestParam @DateTimeFormat(pattern = "MM-dd-yyyy") Date birthDate,
-            @RequestParam String email,
-            @RequestParam String phone) {
+            @RequestParam Optional<String> email,
+            @RequestParam Optional<String> phone) {
         boolean lotNumberExists = householdService.lotNumberExists(lotNumber);
         boolean uniqueSSN = !personService.ssnExists(ssn);
         if (!lotNumberExists || !uniqueSSN) {

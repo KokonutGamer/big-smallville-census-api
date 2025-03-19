@@ -6,9 +6,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 
+import big.census.big_smallville_census_api.dtos.PersonDto;
 import big.census.big_smallville_census_api.entities.Person;
 import java.util.List;
 import java.util.Date;
+import java.util.Optional;
 
 public interface PersonRepository extends JpaRepository<Person, Integer> {
     @Query(nativeQuery = true, value = "SELECT Household.lotNumber FROM Household JOIN Person ON Person.householdID = Household.ID WHERE Person.ssn =:ssn")
@@ -19,7 +21,8 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
      * Inserts a person into the database.
      * 
      * @param ssn             A person's social security number, 9 characters long.
-     * @param maritalStatusID A person's marital status, e.g. 'S', 'M', etc.
+     * @param maritalStatusID A person's marital status, e.g. 'S', 'M', etc. The
+     *                        argument Values are restricted on the front-end.
      * @param lotNumber       A household's lot number. The person is assigned to
      *                        this household if it exists.
      * @param firstName       A person's first name. Limited to 20 characters.
@@ -44,10 +47,11 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
             @Param("firstName") String firstName,
             @Param("lastName") String lastName,
             @Param("birthdate") Date birthDate,
-            @Param("email") String email,
-            @Param("phone") String phone);
+            @Param("email") Optional<String> email,
+            @Param("phone") Optional<String> phone);
 
     /**
+     * Supporting Query -- DO NOT GRADE
      * Queries the database to get the number of People with a specific ssn.
      * 
      * @param ssn A person's social security number, 9 characters long.
@@ -71,10 +75,8 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
      */
     @Query(nativeQuery = true, value = """
                 SELECT
-                    p.ID,
-                    p.FirstName,
-                    p.LastName,
-                    COUNT(c.ID) AS num_children
+                    p.ssn, p.firstname, p.lastname, ms.name,
+                    p.birthdate, p.email, p.phone
                 FROM
                     Person p
                 JOIN
@@ -96,9 +98,17 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
                         AND pt.Name = 'House'
                     )
                 GROUP BY
-                    p.ID, p.FirstName, p.LastName
+                    p.ssn, p.firstname, p.lastname, ms.name,
+                    p.birthdate, p.email, p.phone
                 HAVING
                     COUNT(c.ID) >= 3
             """)
-    public List<Person> getNeedyParents();
+    public List<PersonDto> getNeedyParents();
+
+    @Query(nativeQuery = true, value = """
+            SELECT AGE(Person.birthdate) < INTERVAL '18 years'
+            FROM Person
+            WHERE Person.ssn = :ssn
+            """)
+    public Boolean isDependent(@Param("ssn") String ssn);
 }

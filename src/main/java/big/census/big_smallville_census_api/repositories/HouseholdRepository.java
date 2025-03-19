@@ -42,10 +42,8 @@ public interface HouseholdRepository extends JpaRepository<Household, Integer> {
      * statistics for each household in Smallville. This information is useful to
      * track Smallville’s population and demographics over time.
      * 
-     * To remain consistent with Person class defined in Person.java, all fields are
-     * queried. Unnecessary fields will be filtered out in the front-end.
-     * 
      * @param lotNumber An integer representing the household’s lot number.
+     * @param limit     An integer representing the maximum number of rows to return.
      * @return A list of person objects within the requested household.
      * @author Kent Mayoya
      */
@@ -53,14 +51,16 @@ public interface HouseholdRepository extends JpaRepository<Household, Integer> {
             SELECT Person.ssn, Person.firstname, Person.lastname, MaritalStatus.name,
                 Person.birthdate, Person.email, Person.phone
             FROM Person
-                JOIN Household ON (Person.HouseholdID = Household.ID)
                 JOIN MaritalStatus ON (Person.MaritalStatusID = MaritalStatus.ID)
             WHERE Person.HouseholdID = :lotNumber
             ORDER BY Person.SSN
+            LIMIT :limit
             """)
-    public List<PersonDto> getHouseholdMembers(@Param("lotNumber") Integer lotNumber);
+    public List<PersonDto> getHouseholdMembers(@Param("lotNumber") Integer lotNumber,
+            @Param("limit") Integer limit);
 
     /**
+     * Supporting Query -- DO NOT GRADE
      * Queries the database to get the number of Households with a specific lot
      * number.
      * 

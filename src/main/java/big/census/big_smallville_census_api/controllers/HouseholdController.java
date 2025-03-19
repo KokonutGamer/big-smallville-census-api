@@ -36,13 +36,14 @@ public class HouseholdController {
      * Retrieves household members based on the given lot number.
      * 
      * test on
-     * http://localhost:8080/api/v1/households/members?lotNumber=00085
+     * http://localhost:8080/api/v1/households/members?lotNumber=00085&limit=5
      * 
      * @author Kent Mayoya
      */
     @GetMapping("/members")
-    ResponseEntity<HouseholdResponse> getHouseholdMembers(@RequestParam Integer lotNumber) {
-        HouseholdResponse result = new HouseholdResponse(householdService.getHouseholdMembers(lotNumber));
+    ResponseEntity<HouseholdResponse> getHouseholdMembers(@RequestParam Integer lotNumber,
+            @RequestParam Integer limit) {
+        HouseholdResponse result = new HouseholdResponse(householdService.getHouseholdMembers(lotNumber, limit));
         return ResponseEntity.ok(result);
     }
 }

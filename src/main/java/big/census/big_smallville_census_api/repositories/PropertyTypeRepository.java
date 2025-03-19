@@ -30,9 +30,11 @@ public interface PropertyTypeRepository extends JpaRepository<PropertyType, Stri
   @Modifying
   @Query(nativeQuery = true, value =
     """
+    BEGIN;
     UPDATE PropertyType
     SET taxPercentage = :newTaxPercentage
-    WHERE name = :propertyTypeName;
+    WHERE id = (SELECT id FROM PropertyType WHERE name ILIKE :propertyTypeName);
+    COMMIT;
     """
     )
   Integer setTaxPercentageForASpecificPropertyType(@Param("newTaxPercentage") BigDecimal newTaxPercentage, @Param("propertyTypeName") String propertyTypeName);
@@ -50,7 +52,7 @@ public interface PropertyTypeRepository extends JpaRepository<PropertyType, Stri
     """
     SELECT COUNT(*) = 1
     FROM propertytype
-    WHERE name = :typeName;
+    WHERE name ILIKE :typeName;
     """
     )
   boolean isTypeValid(@Param("typeName") String typeName);
